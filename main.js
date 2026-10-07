@@ -33,8 +33,8 @@ const PROJECTS = [
     ],
     mock: "phones",
     preview: {
-      xl: "assets/traya-xl.png",
-      sm: "assets/traya-sm.png",
+      xl: "assets/traya-xl.webp",
+      sm: "assets/traya-sm.webp",
       alt: "Traya app screens: product plan, diagnosis, hair health result and age question",
     },
     accent: "#3f6b4a",
@@ -66,8 +66,8 @@ const PROJECTS = [
     ],
     mock: "alarm",
     preview: {
-      xl: "assets/wayk-xl.png",
-      sm: "assets/wayk-sm.png",
+      xl: "assets/wayk-xl.webp",
+      sm: "assets/wayk-sm.webp",
       alt: "Wayk app screens: morning energy chart, one alarm one mission, wake-up time picker and push-up mission setup",
     },
     accent: "#f59e0b",
@@ -106,18 +106,18 @@ const PROJECTS = [
       // Paired by actual size: enterprise-sm-* are 2256×1128 (desktop), enterprise-xl-* are 686×514 (mobile)
       slides: [
         {
-          xl: "assets/enterprise-sm-01.png",
-          sm: "assets/enterprise-xl-01.png",
+          xl: "assets/enterprise-sm-01.webp",
+          sm: "assets/enterprise-xl-01.webp",
           alt: "Enterprise Dashboard: eCommerce analytics with revenue, projections and top products",
         },
         {
-          xl: "assets/enterprise-sm-02.png",
-          sm: "assets/enterprise-xl-03.png",
+          xl: "assets/enterprise-sm-02.webp",
+          sm: "assets/enterprise-xl-03.webp",
           alt: "Enterprise Dashboard: business overview with revenue, active users and recent activity",
         },
         {
-          xl: "assets/enterprise-sm-03.png",
-          sm: "assets/enterprise-xl-02.png",
+          xl: "assets/enterprise-sm-03.webp",
+          sm: "assets/enterprise-xl-02.webp",
           alt: "Enterprise Dashboard: order list with status, dates and pagination",
         },
       ],
@@ -185,8 +185,8 @@ const PROJECTS = [
     ],
     mock: "phones",
     preview: {
-      xl: "assets/edu-xl.png",
-      sm: "assets/edu-sm.png",
+      xl: "assets/edu-xl.webp",
+      sm: "assets/edu-sm.webp",
       alt: "EduFund app screens: investing for your child's future, top mutual funds, education cost calculator and secure transactions",
     },
     accent: "#4f46e5",
@@ -225,13 +225,13 @@ const PROJECTS = [
       // Paired by content: desktop 01 / mobile 02 = App Store, desktop 02 / mobile 01 = Play Store
       slides: [
         {
-          xl: "assets/adecco-xl-01.png",
-          sm: "assets/adecco-sm-02.png",
+          xl: "assets/adecco-xl-01.webp",
+          sm: "assets/adecco-sm-02.webp",
           alt: "Adecco India on the App Store: sign-in, dashboard and attendance screens",
         },
         {
-          xl: "assets/adecco-xl-02.png",
-          sm: "assets/adecco-sm-01.png",
+          xl: "assets/adecco-xl-02.webp",
+          sm: "assets/adecco-sm-01.webp",
           alt: "Adecco India on Google Play: 4.5 rating, 100K+ downloads and app screenshots",
         },
       ],
@@ -277,15 +277,15 @@ const EXPERTISE = [
     // Sliced from assets/mobile-app-development.png
     panels: [
       {
-        src: "assets/mobile-app-development-1.png",
+        src: "assets/mobile-app-development-1.webp",
         alt: "Lock screen with Torum and EduFund push notifications",
       },
       {
-        src: "assets/mobile-app-development-2.png",
+        src: "assets/mobile-app-development-2.webp",
         alt: "Deep link torum://post/8421 opened from a notification, routing to the post screen",
       },
       {
-        src: "assets/mobile-app-development-3.png",
+        src: "assets/mobile-app-development-3.webp",
         alt: "Play Console release tracks: internal testing, alpha, beta rolling out at 20%, production",
       },
     ],
@@ -318,15 +318,15 @@ const EXPERTISE = [
     ],
     panels: [
       {
-        src: "assets/web-app-1.png",
+        src: "assets/web-app-1.webp",
         alt: "Lighthouse mobile audit for Kinnbook: performance, accessibility, best practices and SEO scores",
       },
       {
-        src: "assets/web-app-2.png",
+        src: "assets/web-app-2.webp",
         alt: "imaige.io landing page in a browser window",
       },
       {
-        src: "assets/web-app-3.png",
+        src: "assets/web-app-3.webp",
         alt: "Astro Card component source with typed props",
       },
     ],
@@ -362,15 +362,15 @@ const EXPERTISE = [
     ],
     panels: [
       {
-        src: "assets/auth-1.png",
+        src: "assets/auth-1.webp",
         alt: "Sign-in screen with email, Google and Apple options for candidates, associates and clients",
       },
       {
-        src: "assets/auth-2.png",
+        src: "assets/auth-2.webp",
         alt: "eKYC step 2 of 3: OTP verification before document and face match",
       },
       {
-        src: "assets/auth-3.png",
+        src: "assets/auth-3.webp",
         alt: "Checkout with server-verified totals and card payment",
       },
     ],
@@ -406,15 +406,15 @@ const EXPERTISE = [
     ],
     panels: [
       {
-        src: "assets/release-devops-1.png",
+        src: "assets/release-devops-1.webp",
         alt: "Terminal running fastlane android beta: gradle bundleRelease, upload to Play Store beta track",
       },
       {
-        src: "assets/release-devops-2.png",
+        src: "assets/release-devops-2.webp",
         alt: "CI run on a feature branch: lint, typecheck, unit tests and build all passed",
       },
       {
-        src: "assets/release-devops-3.png",
+        src: "assets/release-devops-3.webp",
         alt: "Branch protection on main: require pull requests, status checks and up-to-date branches",
       },
     ],
@@ -443,15 +443,15 @@ const EXPERTISE = [
     panels: [
       // ai-1/ai-2 are trimmed 1200px copies of the originals (removes a 1px export outline)
       {
-        src: "assets/ai-1-web.png",
+        src: "assets/ai-1-web.webp",
         alt: "E-book cover: AI + Gemini for Web Developers, a beginner's practical guide by Priyanka Sharma",
       },
       {
-        src: "assets/ai-2-web.png",
+        src: "assets/ai-2-web.webp",
         alt: "Tech talk at Microsoft Bangalore: Practical Guide to Azure OpenAI Service Integration, from setup to production",
       },
       {
-        src: "assets/ai-3.png",
+        src: "assets/ai-3.webp",
         alt: "summarize.ts calling the Gemini API with the @google/genai SDK",
       },
     ],

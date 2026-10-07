@@ -254,7 +254,7 @@ html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *
   opacity: 0; animation: fadeUp 1.1s .95s var(--ease) forwards;
 }
 .hero-intro h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
-.hero-intro p { color: var(--ink-2); font-size: 13.5px; margin: 0 0 18px; }
+.hero-intro p { color: var(--ink-2); font-size: 13.5px; margin: 0 0 18px; text-wrap: pretty; }
 .hero-intro p strong { color: var(--ink); font-weight: 700; }
 
 .hero-social {
@@ -450,7 +450,7 @@ html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *
 /* ========== How I work with AI ========== */
 .ai-work { --me: #047857; }
 :root[data-theme="dark"] .ai-work { --me: #6ee7b7; }
-.ai-lede { max-width: 640px; margin: -12px 0 40px; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.5; color: var(--ink-2); }
+.ai-lede { max-width: 640px; margin: -12px 0 40px; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.5; color: var(--ink-2); text-wrap: pretty; }
 .ai-grid, .ai-rules { max-width: 1240px; }
 .ai-work > .ai-lede { margin-left: max(0px, calc((100% - 1240px) / 2)); }
 .ai-grid { margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 22px; }

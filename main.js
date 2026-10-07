@@ -1065,11 +1065,11 @@ function renderDetail(p) {
     </div>
     <div class="detail-shot">${p.preview ? previewHTML(p, true) : mockHTML(p)}</div>
     <div class="detail-note">
-      <h3>Highlights</h3>
+      <h2>Highlights</h2>
       <ul>${p.highlights.map((h) => `<li>${esc(h)}</li>`).join("")}</ul>
     </div>
     <div class="detail-more">
-      <h3>More work</h3>
+      <h2>More work</h2>
       <div class="grid">${others.map(cardHTML).join("")}</div>
     </div>`;
   observeReveals();

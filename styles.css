@@ -616,10 +616,10 @@ body.viewing #home { display: none; }
 .detail-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .detail-shot { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 16 / 8; background: var(--paper); box-shadow: var(--shadow-card); animation: fadeUp 1.1s .1s var(--ease) both; }
 .detail-note { margin: 28px auto; max-width: 760px; background: var(--paper); border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow-card); }
-.detail-note h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 10px; }
+.detail-note h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 10px; }
 .detail-note ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
 .detail-more { margin-top: 60px; }
-.detail-more > h3 { font-size: 22px; font-weight: 600; margin-bottom: 20px; }
+.detail-more > h2 { font-size: 22px; font-weight: 600; margin-bottom: 20px; }
 
 /* ========== Reveal ========== */
 .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease), transform 1.1s var(--ease); }

@@ -8,7 +8,3 @@ node_modules/
 .vercel/
 .DS_Store
 *.log
-
-# Original images kept locally; the site uses the trimmed *-web.png copies
-assets/ai-1.png
-assets/ai-2.png

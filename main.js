@@ -670,7 +670,7 @@ $("#year").textContent = new Date().getFullYear();
 const nav = $("#nav");
 const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 40);
 addEventListener("scroll", onScroll, { passive: true });
-onScroll();
+requestAnimationFrame(onScroll); // after layout, so reading scrollY doesn't force a synchronous reflow
 
 // Theme toggle — circular reveal from the button via the View Transitions API
 const root = document.documentElement;

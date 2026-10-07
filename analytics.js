@@ -92,4 +92,9 @@ async function start() {
   }, true);
 }
 
-start().catch((err) => console.warn("[analytics] disabled:", err?.message || err));
+// Not needed for the first paint: start once the page has loaded and the browser is idle,
+// so Firebase's request chain (config -> SDK -> webConfig -> installations) stays off the critical path.
+const boot = () => start().catch((err) => console.warn("[analytics] disabled:", err?.message || err));
+const whenIdle = () => ("requestIdleCallback" in window ? requestIdleCallback(boot, { timeout: 4000 }) : setTimeout(boot, 1500));
+if (document.readyState === "complete") whenIdle();
+else addEventListener("load", whenIdle, { once: true });

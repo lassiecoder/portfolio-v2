@@ -128,7 +128,8 @@ h1, h2, h3 { margin: 0; letter-spacing: -0.02em; }
 }
 .nav-links { display: flex; gap: clamp(18px, 4vw, 64px); font-size: 13px; font-weight: 500; }
 .nav-links a { position: relative; }
-.nav-links a sup { color: var(--muted); font-size: 9px; margin-left: 2px; }
+.nav-links a sup { color: #666; font-size: 9px; margin-left: 2px; }   /* 5.7:1 on the white nav */
+:root[data-theme="dark"] .nav-links a sup { color: #9a9a9a; }
 .nav-links a::after {
   content: ""; position: absolute; left: 0; bottom: -3px; height: 1px; width: 100%;
   background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .4s var(--ease);

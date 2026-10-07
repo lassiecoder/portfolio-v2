@@ -548,6 +548,18 @@ const esc = (s) =>
 
 // Real preview images: xl for desktop/tablet, sm for phones (≤640px).
 // One image renders statically; several become a slideshow (see initSlideshows).
+// Intrinsic widths of images that have smaller -640/-1200 variants (made at build time),
+// so the browser can download the size it actually displays.
+const IMG_W = {"adecco-xl-01.webp": 2256, "adecco-xl-02.webp": 2256, "ai-1-web.webp": 1200, "ai-2-web.webp": 1200, "ai-3.webp": 1200, "auth-1.webp": 1200, "auth-2.webp": 1200, "auth-3.webp": 1200, "edu-xl.webp": 2256, "enterprise-sm-01.webp": 2256, "enterprise-sm-02.webp": 2256, "enterprise-sm-03.webp": 2256, "mobile-app-development-1.webp": 900, "mobile-app-development-2.webp": 900, "mobile-app-development-3.webp": 900, "portrait.webp": 1000, "release-devops-1.webp": 1200, "release-devops-2.webp": 1200, "release-devops-3.webp": 1200, "traya-xl.webp": 2256, "wayk-xl.webp": 2256, "web-app-1.webp": 1200, "web-app-2.webp": 1200, "web-app-3.webp": 1200};
+function srcset(path) {
+  const w = IMG_W[path.split("/").pop()];
+  if (!w) return "";
+  const sizes = [640, 1200].filter((v) => w > v * 1.15).map((v) => `${path.replace(/\.webp$/, `-${v}.webp`)} ${v}w`);
+  return [...sizes, `${path} ${w}w`].join(", ");
+}
+const CARD_SIZES = "(max-width: 900px) 92vw, 520px";
+const DETAIL_SIZES = "(max-width: 1240px) 92vw, 1128px";
+
 function previewHTML(p, eager = false) {
   const slides = p.preview.slides || [p.preview];
   const multi = slides.length > 1;
@@ -555,7 +567,7 @@ function previewHTML(p, eager = false) {
     .map(
       (sl, i) => `<picture class="slide${i === 0 ? " is-active" : ""}">
       <source media="(max-width: 640px)" srcset="${sl.sm}" />
-      <img src="${sl.xl}" alt="${esc(sl.alt)}" ${i === 0 && eager ? 'fetchpriority="high"' : 'loading="lazy"'} />
+      <img src="${sl.xl}" srcset="${srcset(sl.xl)}" sizes="${eager ? DETAIL_SIZES : CARD_SIZES}" alt="${esc(sl.alt)}" ${i === 0 && eager ? 'fetchpriority="high"' : 'loading="lazy"'} />
     </picture>`,
     )
     .join("");
@@ -622,7 +634,7 @@ $("#accordion").innerHTML = EXPERTISE.map(
         <div class="chips">${s.chips.map((c) => `<span>${esc(c)}</span>`).join("")}</div>
         <ul class="proof" aria-label="Where I've done this">${s.proof.map((r) => `<li><b>${esc(r.where)}</b><span>${esc(r.what)}</span>${r.metric ? `<em>${esc(r.metric)}</em>` : ""}</li>`).join("")}</ul>
       </div>
-      <div class="acc-deck"><div class="mock shots slideshow">${s.panels.map((pn, i) => `<div class="slide${i === 0 ? " is-active" : ""}"><img src="${pn.src}" alt="${esc(pn.alt)}" loading="lazy" /></div>`).join("")}<span class="slide-bars">${s.panels.map((_, i) => `<span class="bar${i === 0 ? " on" : ""}" data-i="${i}" role="button" tabindex="0" aria-label="Show panel ${i + 1} of ${s.panels.length}"><i></i></span>`).join("")}</span></div></div>
+      <div class="acc-deck"><div class="mock shots slideshow">${s.panels.map((pn, i) => `<div class="slide${i === 0 ? " is-active" : ""}"><img src="${pn.src}" srcset="${srcset(pn.src)}" sizes="(max-width: 900px) 92vw, 520px" alt="${esc(pn.alt)}" loading="lazy" /></div>`).join("")}<span class="slide-bars">${s.panels.map((_, i) => `<span class="bar${i === 0 ? " on" : ""}" data-i="${i}" role="button" tabindex="0" aria-label="Show panel ${i + 1} of ${s.panels.length}"><i></i></span>`).join("")}</span></div></div>
     </div></div></div>
   </div>`,
 ).join("");

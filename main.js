@@ -2,6 +2,8 @@
    Content — all sourced from Priyanka Sharma's resume
    ========================================================= */
 
+const HOME_TITLE = document.title; // set in index.html (SEO title)
+
 const PROJECTS = [
   {
     slug: "traya",
@@ -1052,12 +1054,12 @@ function route() {
     renderDetail(p);
     document.body.classList.add("viewing");
     detail.hidden = false;
-    document.title = `${p.title} — Priyanka Sharma`;
+    document.title = `${p.title} · Priyanka Sharma (lassiecoder)`;
     scrollTo({ top: 0, behavior: "instant" });
   } else if (document.body.classList.contains("viewing")) {
     document.body.classList.remove("viewing");
     detail.hidden = true;
-    document.title = "Priyanka Sharma — SDE2, Frontend & Mobile Engineer";
+    document.title = HOME_TITLE;
     const target = location.hash && document.querySelector(location.hash);
     if (target && location.hash !== "#work") target.scrollIntoView();
     else

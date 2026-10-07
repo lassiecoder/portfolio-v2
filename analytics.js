@@ -72,7 +72,7 @@ async function start() {
     else if (el.id === "themeToggle") setTimeout(() => track("theme_toggle", { theme: document.documentElement.dataset.theme }), 0);
     else if (el.matches(".filters button")) track("filter_work", { filter: el.dataset.filter });
     else if (el.matches(".acc-head")) track("expand_expertise", { area: el.firstElementChild?.textContent.trim(), open: el.getAttribute("aria-expanded") !== "true" });
-    else if (el.matches(".xp-row > button")) track("expand_experience", { company: el.querySelector("h3")?.textContent.trim() });
+    else if (el.matches(".xp-toggle")) track("expand_experience", { company: el.closest(".xp-row")?.querySelector("h3")?.textContent.trim() });
     else if (el.matches(".slide-bars .bar")) track("slideshow_jump", { slide: Number(el.dataset.i) + 1, location, project });
   }
 

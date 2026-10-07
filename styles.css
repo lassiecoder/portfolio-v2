@@ -490,11 +490,23 @@ html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *
 .experience .muted { color: #a3a3a3; font-size: 14px; }
 .xp { list-style: none; margin: 0 auto; padding: 0; max-width: 1240px; }
 .xp-row { border-bottom: 1px solid var(--dark-line); }
-.xp-row > button {
-  width: 100%; display: grid; grid-template-columns: 1fr auto auto; gap: 24px; align-items: center;
-  padding: 20px 6px; text-align: left; transition: padding .5s var(--ease);
+.xp-head {
+  position: relative; display: grid; grid-template-columns: 1fr auto auto; gap: 24px; align-items: center;
+  padding: 20px 6px; transition: padding .5s var(--ease); cursor: pointer;
 }
-.xp-row > button:hover { padding-left: 16px; }
+.xp-head:hover { padding-left: 16px; }
+.xp-toggle { padding: 0; }
+.xp-toggle::before { content: ""; position: absolute; inset: 0; }          /* whole row is the click target */
+.xp-toggle:focus-visible { outline: none; }
+.xp-toggle:focus-visible::before { outline: 2px solid #fff; outline-offset: -2px; border-radius: 8px; }
+.xp-co h3 { display: inline; }
+.xp-li {
+  position: relative; z-index: 1;                                            /* above the stretched toggle */
+  display: inline-grid; place-items: center; width: 22px; height: 22px; margin-left: 8px; vertical-align: -3px;
+  border-radius: 5px; color: #8a8a8a; transition: color .25s, background .25s;
+}
+.xp-li svg { width: 14px; height: 14px; fill: currentColor; }
+.xp-li:hover, .xp-li:focus-visible { color: #fff; background: #0a66c2; outline: none; }
 .xp-row h3 { font-size: 16px; font-weight: 600; }
 .xp-row .role { color: #9a9a9a; font-size: 14px; display: block; margin-top: 2px; }
 .xp-row .when { color: #a3a3a3; font-size: 14px; text-align: right; }
@@ -706,9 +718,9 @@ body.viewing #home { display: none; }
   .nav .btn { padding: 8px 14px; font-size: 12px; }
   .work-bar { justify-content: center; }
   .grid { grid-template-columns: 1fr; }
-  .xp-row > button { grid-template-columns: 1fr auto; }
+  .xp-head { grid-template-columns: 1fr auto; }
   .xp-row .when { grid-column: 1; grid-row: 2; text-align: left; }
-  .xp-row .ico { grid-column: 2; grid-row: 1 / 3; }
+  .xp-row .xp-toggle { grid-column: 2; grid-row: 1 / 3; }
   .section-head.row { flex-direction: column; gap: 4px; }
   .stats > div { padding: 24px 16px; }
   .detail-shot { aspect-ratio: 4 / 3; }

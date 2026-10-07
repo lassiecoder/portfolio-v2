@@ -313,8 +313,8 @@ const EXPERTISE = [
         what: "Astro SSG site with reusable components, page performance and SEO tuning",
       },
       {
-        where: "Black Leaf",
-        what: "Optimised frontend data flow to remove redundant network requests",
+        where: "Zataverse",
+        what: "Optimized frontend data flow to remove redundant network requests",
       },
       { where: "EduFund", what: "Next.js white-label build for ICICI" },
     ],
@@ -462,7 +462,8 @@ const EXPERTISE = [
 
 const EXPERIENCE = [
   {
-    company: "Black Leaf Digital",
+    company: "Zataverse (formerly Black Leaf Digital)",
+    linkedin: "https://www.linkedin.com/company/blackleafdigital/",
     role: "SDE2",
     where: "Los Angeles, CA",
     when: "Nov 2025 — Now",
@@ -486,6 +487,7 @@ const EXPERIENCE = [
   },
   {
     company: "The Adecco Group",
+    linkedin: "https://www.linkedin.com/company/theadeccogroup/",
     role: "SDE1",
     where: "Bangalore, IN",
     when: "May 2023 — Nov 2025",
@@ -501,6 +503,7 @@ const EXPERIENCE = [
   },
   {
     company: "Torum Technology Sdn. Bhd.",
+    linkedin: "https://www.linkedin.com/company/torum",
     role: "Mobile Application Developer",
     where: "Kuala Lumpur, MY",
     when: "May 2022 — May 2023",
@@ -516,6 +519,7 @@ const EXPERIENCE = [
   },
   {
     company: "EduFund",
+    linkedin: "https://www.linkedin.com/company/edufund-app",
     role: "Product Engineer",
     where: "Bangalore, IN",
     when: "Aug 2020 — May 2022",
@@ -625,11 +629,19 @@ $("#accordion").innerHTML = EXPERTISE.map(
 
 $("#xp").innerHTML = EXPERIENCE.map(
   (x, i) => `<li class="xp-row reveal" data-i="${i}">
-    <button aria-expanded="false">
-      <span><h3>${esc(x.company)}</h3><span class="role">${esc(x.role)}</span></span>
+    <div class="xp-head">
+      <span class="xp-co">
+        <h3>${esc(x.company)}</h3>${
+          x.linkedin
+            ? `<a class="xp-li" href="${x.linkedin}" target="_blank" rel="noopener" aria-label="${esc(x.company)} on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg></a>`
+            : ""
+        }
+        <span class="role">${esc(x.role)}</span>
+      </span>
       <span class="when">${esc(x.when)}<span class="where">${esc(x.where)}</span></span>
-      <span class="ico">+</span>
-    </button>
+      <!-- Stretched over the whole row (see .xp-toggle::before), so clicking anywhere expands it -->
+      <button class="xp-toggle" aria-expanded="false" aria-label="Show what I did at ${esc(x.company)}"><span class="ico">+</span></button>
+    </div>
     <div class="xp-detail"><div>
       <ul>${x.points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
       <div class="chips">${x.chips.map((c) => `<span>${esc(c)}</span>`).join("")}</div>
@@ -778,11 +790,12 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
     label = $(".insp-label", insp);
   const TARGETS = "a, button, [role=button], .acc-head, label, select";
   // Innermost wins: a link inside a Beyond Code card (incl. the Publication card's "View" label),
-  // then any normal interactive element, then the card itself.
+  // then any normal interactive element, then a showcase card itself (Beyond Code, How I work with AI).
   const resolve = (el) =>
-    el?.closest?.(".b-card .link-arrow") ||
+    el?.closest?.(".b-card .link-arrow, .xp-li") ||
+    el?.closest?.(".xp-head") ||
     el?.closest?.(TARGETS) ||
-    el?.closest?.(".b-card") ||
+    el?.closest?.(".b-card, .ai-card") ||
     null;
   const PAD = 6;
   let target = null,
@@ -936,17 +949,22 @@ document.querySelectorAll(".acc-item").forEach((item) =>
 // Experience rows: click to expand, hover shows a floating metric tile
 const preview = $("#xpPreview");
 document.querySelectorAll(".xp-row").forEach((row) => {
-  const btn = $("button", row);
+  const btn = $(".xp-toggle", row);
+  const head = $(".xp-head", row);
   const x = EXPERIENCE[row.dataset.i];
   btn.addEventListener("click", () => {
     const open = row.classList.toggle("open");
     btn.setAttribute("aria-expanded", open);
   });
-  btn.addEventListener("mouseenter", () => {
+  head.addEventListener("mouseenter", () => {
     preview.innerHTML = `<div class="tile"><b>${x.metric[0]}</b><small>${esc(x.metric[1])}</small></div>`;
     preview.classList.add("show");
   });
-  btn.addEventListener("mouseleave", () => preview.classList.remove("show"));
+  head.addEventListener("mouseleave", () => preview.classList.remove("show"));
+  // Pointing at the LinkedIn icon: hide the metric tile so it doesn't cover the link
+  const li = $(".xp-li", row);
+  li?.addEventListener("mouseenter", () => preview.classList.remove("show"));
+  li?.addEventListener("mouseleave", () => head.matches(":hover") && preview.classList.add("show"));
 });
 addEventListener(
   "mousemove",

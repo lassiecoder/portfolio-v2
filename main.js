@@ -17,7 +17,7 @@ const PROJECTS = [
     highlights: [
       "Multi-step signup and onboarding flow",
       "11-question guided assessment with progress tracking",
-      "Generated personalised report and treatment plan",
+      "Generated personalized report and treatment plan",
       "Mini product checkout at the end of the journey",
     ],
     role: "Design & Development",
@@ -50,10 +50,10 @@ const PROJECTS = [
     badge: "Personal Project",
     tags: ["Mobile App", "React Native"],
     summary:
-      "An alarm app that doesn't let you snooze your way back to sleep. Pick a wake time and a “mission” you must complete before the alarm stops — push-ups, a math problem, photographing your made bed — and Wayk builds a personalised morning plan around it.",
+      "An alarm app that doesn't let you snooze your way back to sleep. Pick a wake time and a “mission” you must complete before the alarm stops — push-ups, a math problem, photographing your made bed — and Wayk builds a personalized morning plan around it.",
     highlights: [
       "Mission-gated alarms: push-ups, math problems, photo check-ins",
-      "Personalised morning plan built around your wake time",
+      "Personalized morning plan built around your wake time",
       "Designed for reliability — the alarm only stops when the mission is done",
     ],
     role: "Design & Development",
@@ -83,10 +83,10 @@ const PROJECTS = [
     badge: "Personal Project",
     tags: ["Web App", "Next.js 16"],
     summary:
-      "A modern, feature-rich enterprise dashboard built with Next.js 16, React 19, TypeScript and Tailwind CSS — comprehensive business analytics, eCommerce management and data visualisation with dark and light themes.",
+      "A modern, feature-rich enterprise dashboard built with Next.js 16, React 19, TypeScript and Tailwind CSS — comprehensive business analytics, eCommerce management and data visualization with dark and light themes.",
     highlights: [
       "Business analytics and eCommerce management modules",
-      "Data visualisation with charts and KPI cards",
+      "Data visualization with charts and KPI cards",
       "Dark / light theme support",
       "Built on the latest Next.js 16 + React 19 stack",
     ],
@@ -134,7 +134,7 @@ const PROJECTS = [
     badge: "Open Source",
     tags: ["NPM Package", "Node.js", "CLI"],
     summary:
-      "A personalised command-line business card. Run one command and see a professional profile, skills and contact information — right in the terminal.",
+      "A personalized command-line business card. Run one command and see a professional profile, skills and contact information — right in the terminal.",
     highlights: [
       "Zero-install: runs with a single npx command",
       "Showcases profile, skills and contact links in the terminal",
@@ -471,9 +471,9 @@ const EXPERIENCE = [
       "Develop and maintain multiple client applications across React, React Native and Astro for web and mobile.",
       "Built the Imaige.io website from scratch — authentication flows, secure payment gateway integration and responsive onboarding, improving conversion and checkout reliability.",
       "Refactored Socialaise social authentication — OAuth integrations, sign-up/sign-in flows and push notification handling.",
-      "Developed the Kinnbook marketing site in Astro with reusable components, optimised SSG, performance and SEO.",
+      "Developed the Kinnbook marketing site in Astro with reusable components, optimized SSG, performance and SEO.",
       "Resolved production issues in Staryo — UI inconsistencies, stability and customer-reported usability bottlenecks.",
-      "Integrated third-party APIs and optimised frontend data flow to cut redundant network requests.",
+      "Integrated third-party APIs and optimized frontend data flow to cut redundant network requests.",
     ],
     chips: [
       "React",
@@ -494,7 +494,7 @@ const EXPERIENCE = [
       "Developed a white-label user-onboarding solution enabling faster deployment across multiple client brands.",
       "Enhanced candidate, associate and client sign-in/sign-up screens for performance and maintainability.",
       "Automated mobile deployment with Fastlane and web deployment via GitOps, reducing release time by 60%.",
-      "Refactored and optimised the eKYC process with clients, improving onboarding time and reducing support queries.",
+      "Refactored and optimized the eKYC process with clients, improving onboarding time and reducing support queries.",
       "Automated PR review with GitHub Actions, branch protection and required checks — 40% less manual review overhead.",
     ],
     chips: ["React Native", "Fastlane", "GitOps", "GitHub Actions", "eKYC"],
@@ -525,7 +525,7 @@ const EXPERIENCE = [
       "Integrated third-party tools for secure access via facial recognition and fingerprint scanning.",
       "Set up Firebase to track user activity, enabling age-based targeted marketing.",
       "Integrated push notifications, increasing new-user activity by 47%.",
-      "Integrated Fastlane to optimise build and deployment workflows.",
+      "Integrated Fastlane to optimize build and deployment workflows.",
       "Developed a white-label solution for ICICI, a major banking partner, using Next.js.",
     ],
     chips: ["React Native", "Next.js", "Firebase", "Fastlane", "KYC"],

@@ -580,7 +580,7 @@ a.b-card:hover, .b-card:has(.b-links):hover { transform: translateY(-6px); box-s
 .footer-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
 .footer-links a:hover { color: #fff; }
 .footer-links.social { justify-content: flex-end; }
-.footer .copy { grid-column: 1 / -1; margin: 12px 0 0; padding-top: 20px; border-top: 1px solid #2a2a2a; color: #6b6b6b; font-size: 12px; }
+.footer .copy { grid-column: 1 / -1; margin: 12px 0 0; padding-top: 20px; border-top: 1px solid #2a2a2a; color: #8f8f8f; font-size: 12px; }
 
 /* ========== Project detail ========== */
 body.viewing #home { display: none; }

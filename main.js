@@ -907,7 +907,7 @@ document.querySelectorAll(".filters button").forEach((btn) =>
   btn.addEventListener("click", () => {
     document
       .querySelectorAll(".filters button")
-      .forEach((b) => b.classList.toggle("active", b === btn));
+      .forEach((b) => { b.classList.toggle("active", b === btn); b.setAttribute("aria-pressed", b === btn); });
     const f = btn.dataset.filter;
     document.querySelectorAll("#grid .card").forEach((c) => {
       c.classList.toggle(

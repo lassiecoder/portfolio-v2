@@ -2,6 +2,7 @@
 .env
 .env.*
 firebase-config.js
+posthog-config.js
 
 # Tooling / OS
 node_modules/

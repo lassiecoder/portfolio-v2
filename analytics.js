@@ -1,30 +1,60 @@
-// Firebase Analytics (Google Analytics 4) for the portfolio.
-// Loads only when firebase-config.js has a measurementId, so nothing is sent until it's configured.
+// Analytics for the portfolio: Firebase Analytics (GA4) and PostHog, side by side.
+// Each provider loads only when its generated config has a key, so nothing is sent until it's configured.
 
-const SDK = "https://www.gstatic.com/firebasejs/13.0.0";
+const FIREBASE_SDK = "https://www.gstatic.com/firebasejs/13.0.0";
+const POSTHOG_SDK = "https://cdn.jsdelivr.net/npm/posthog-js@1.434.2/dist/module.js";
+
+async function startFirebase() {
+  // firebase-config.js is generated from env vars at build time (scripts/build-config.mjs); absent => Firebase off
+  const { firebaseConfig } = await import("./firebase-config.js").catch(() => ({}));
+  if (!firebaseConfig?.measurementId || !firebaseConfig?.appId) return null;
+  const [{ initializeApp }, { getAnalytics, isSupported, logEvent }] = await Promise.all([
+    import(`${FIREBASE_SDK}/firebase-app.js`),
+    import(`${FIREBASE_SDK}/firebase-analytics.js`),
+  ]);
+  if (!(await isSupported())) return null; // e.g. blocked storage or unsupported browser
+  const analytics = getAnalytics(initializeApp(firebaseConfig));
+  return {
+    track: (name, params) => logEvent(analytics, name, params),
+    pageView: (path) => logEvent(analytics, "page_view", { page_title: document.title, page_location: location.href, page_path: path }),
+  };
+}
+
+async function startPostHog() {
+  // posthog-config.js is generated alongside firebase-config.js; absent => PostHog off
+  const { posthogConfig } = await import("./posthog-config.js").catch(() => ({}));
+  if (!posthogConfig?.key) return null;
+  const { default: posthog } = await import(POSTHOG_SDK);
+  posthog.init(posthogConfig.key, {
+    api_host: posthogConfig.host,
+    defaults: "2026-05-30",
+    person_profiles: "identified_only", // anonymous visitors only; no person profiles to bill for
+    capture_pageview: true, // initial load only; project routes are captured below on hashchange
+  });
+  return {
+    track: (name, params) => posthog.capture(name, params),
+    // The initial load is already a $pageview, so only hash navigations need one
+    pageView: (path, initial) => initial || posthog.capture("$pageview", { $current_url: location.href, path }),
+  };
+}
+
+const settle = (p, name) => p.catch((err) => console.warn(`[analytics] ${name} disabled:`, err?.message || err));
 
 async function start() {
-  // firebase-config.js is generated from env vars at build time (scripts/build-config.mjs); absent => analytics off
-  const { firebaseConfig } = await import("./firebase-config.js").catch(() => ({}));
-  if (!firebaseConfig?.measurementId || !firebaseConfig?.appId) return;
-  const [{ initializeApp }, { getAnalytics, isSupported, logEvent }] = await Promise.all([
-    import(`${SDK}/firebase-app.js`),
-    import(`${SDK}/firebase-analytics.js`),
-  ]);
-  if (!(await isSupported())) return; // e.g. blocked storage or unsupported browser
-  const analytics = getAnalytics(initializeApp(firebaseConfig));
-  const track = (name, params = {}) => logEvent(analytics, name, params);
+  const providers = (await Promise.all([settle(startFirebase(), "firebase"), settle(startPostHog(), "posthog")])).filter(Boolean);
+  if (!providers.length) return;
+  const track = (name, params = {}) => providers.forEach((p) => p.track(name, params));
 
   /* ---------- Project pages are hash routes: log them as page views ---------- */
   const slugOf = () => location.hash.match(/^#\/work\/([\w-]+)/)?.[1];
-  const projectView = () => {
+  const projectView = (initial) => {
     const slug = slugOf();
     if (!slug) return;
-    track("page_view", { page_title: document.title, page_location: location.href, page_path: `/work/${slug}` });
+    providers.forEach((p) => p.pageView(`/work/${slug}`, initial));
     track("view_project", { project: slug });
   };
-  addEventListener("hashchange", projectView);
-  projectView(); // deep link straight to a project
+  addEventListener("hashchange", () => projectView(false));
+  projectView(true); // deep link straight to a project
 
   /* ---------- Which sections people actually reach (once per page load) ---------- */
   const seen = new Set();
@@ -93,7 +123,7 @@ async function start() {
 }
 
 // Not needed for the first paint: start once the page has loaded and the browser is idle,
-// so Firebase's request chain (config -> SDK -> webConfig -> installations) stays off the critical path.
+// so the Firebase and PostHog request chains stay off the critical path.
 const boot = () => start().catch((err) => console.warn("[analytics] disabled:", err?.message || err));
 const whenIdle = () => ("requestIdleCallback" in window ? requestIdleCallback(boot, { timeout: 4000 }) : setTimeout(boot, 1500));
 if (document.readyState === "complete") whenIdle();

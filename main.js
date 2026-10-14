@@ -6,6 +6,56 @@ const HOME_TITLE = document.title; // set in index.html (SEO title)
 
 const PROJECTS = [
   {
+    slug: "rn-build-doctor",
+    title: "RN Build Doctor — Find the Real Build Error",
+    kind: "NPM Package",
+    filter: ["oss", "mobile"],
+    badge: "Open Source",
+    tags: ["NPM Package", "CLI", "React Native"],
+    summary:
+      "An open-source CLI that finds the real reason a React Native or Expo build, release, or startup failed. Pipe in a Gradle, Xcode, CocoaPods, Metro, or device log and it reports the primary error, the log lines that prove it, and the next steps — offline, with no guessing.",
+    highlights: [
+      "40 evidence-based checks across Android/Gradle, iOS/Xcode, CocoaPods, Metro, Expo and runtime logs",
+      "Reads build logs, adb logcat and iOS crash reports — one command: npx rn-build-doctor",
+      "Says “no supported diagnosis” instead of guessing; every finding has a confidence level and evidence",
+      "Runs offline, never reads .env values, and redacts reports before they're shared",
+      "Tested against real React Native 0.86/0.87 apps, Expo SDK 57, Xcode 26 and an Android emulator",
+    ],
+    role: "Author & Maintainer",
+    stack: "TypeScript, Node.js, Zod, Vitest",
+    links: [
+      {
+        label: "View Code",
+        href: "https://github.com/lassiecoder/rn-build-doctor",
+      },
+      {
+        label: "View on npm",
+        href: "https://www.npmjs.com/package/rn-build-doctor",
+        primary: true,
+      },
+    ],
+    preview: {
+      slides: [
+        {
+          xl: "assets/rn-build-doctor-xl-01.webp",
+          sm: "assets/rn-build-doctor-sm-01.webp",
+          alt: "RN Build Doctor: find the real reason your React Native build failed, npx rn-build-doctor",
+        },
+        {
+          xl: "assets/rn-build-doctor-xl-02.webp",
+          sm: "assets/rn-build-doctor-sm-02.webp",
+          alt: "Terminal: a failing Android build piped into rn-build-doctor reports a library that needs minSdk 26, with evidence and next steps",
+        },
+        {
+          xl: "assets/rn-build-doctor-xl-03.webp",
+          sm: "assets/rn-build-doctor-sm-03.webp",
+          alt: "Terminal: adb logcat piped into rn-build-doctor reports that the app couldn't reach Metro to load its JavaScript bundle",
+        },
+      ],
+    },
+    accent: "#34d399",
+  },
+  {
     slug: "traya",
     title: "Traya — Hair Assessment App",
     kind: "Mobile App",
@@ -550,7 +600,7 @@ const esc = (s) =>
 // One image renders statically; several become a slideshow (see initSlideshows).
 // Intrinsic widths of images that have smaller -640/-1200 variants (made at build time),
 // so the browser can download the size it actually displays.
-const IMG_W = {"adecco-xl-01.webp": 2256, "adecco-xl-02.webp": 2256, "ai-1-web.webp": 1200, "ai-2-web.webp": 1200, "ai-3.webp": 1200, "auth-1.webp": 1200, "auth-2.webp": 1200, "auth-3.webp": 1200, "edu-xl.webp": 2256, "enterprise-sm-01.webp": 2256, "enterprise-sm-02.webp": 2256, "enterprise-sm-03.webp": 2256, "mobile-app-development-1.webp": 900, "mobile-app-development-2.webp": 900, "mobile-app-development-3.webp": 900, "portrait.webp": 1000, "release-devops-1.webp": 1200, "release-devops-2.webp": 1200, "release-devops-3.webp": 1200, "traya-xl.webp": 2256, "wayk-xl.webp": 2256, "web-app-1.webp": 1200, "web-app-2.webp": 1200, "web-app-3.webp": 1200};
+const IMG_W = {"rn-build-doctor-xl-01.webp": 2256, "rn-build-doctor-xl-02.webp": 2256, "rn-build-doctor-xl-03.webp": 2256, "adecco-xl-01.webp": 2256, "adecco-xl-02.webp": 2256, "ai-1-web.webp": 1200, "ai-2-web.webp": 1200, "ai-3.webp": 1200, "auth-1.webp": 1200, "auth-2.webp": 1200, "auth-3.webp": 1200, "edu-xl.webp": 2256, "enterprise-sm-01.webp": 2256, "enterprise-sm-02.webp": 2256, "enterprise-sm-03.webp": 2256, "mobile-app-development-1.webp": 900, "mobile-app-development-2.webp": 900, "mobile-app-development-3.webp": 900, "portrait.webp": 1000, "release-devops-1.webp": 1200, "release-devops-2.webp": 1200, "release-devops-3.webp": 1200, "traya-xl.webp": 2256, "wayk-xl.webp": 2256, "web-app-1.webp": 1200, "web-app-2.webp": 1200, "web-app-3.webp": 1200};
 function srcset(path) {
   const w = IMG_W[path.split("/").pop()];
   if (!w) return "";

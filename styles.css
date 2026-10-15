@@ -262,12 +262,20 @@ html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *
 
 .hero-social {
   grid-column: 3; grid-row: 2; justify-self: end; align-self: center;
-  list-style: none; margin: 0; padding: 0 0 6vh; display: grid; gap: 14px;
+  list-style: none; margin: 0; padding: 0 0 6vh; display: grid; min-width: 168px;
   opacity: 0; animation: fadeUp .85s .62s var(--ease) forwards;
 }
-.hero-social a { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; transition: transform .4s var(--ease); }
-.hero-social a:hover { transform: translateX(-4px); }
-.hero-social svg { width: 14px; height: 14px; fill: currentColor; }
+/* Small mono heading + hairline rows, so six links read as one tidy list */
+.hero-social::before { content: "// elsewhere"; font-family: var(--mono); font-size: 11px; color: var(--muted); padding-bottom: 8px; }
+.hero-social li + li { border-top: 1px solid var(--line); }
+.hero-social a {
+  display: flex; align-items: center; gap: 10px; padding: 9px 2px;
+  font-size: 13px; font-weight: 600; color: var(--ink-2); transition: color .3s, padding .4s var(--ease);
+}
+.hero-social a::after { content: "↗"; margin-left: auto; opacity: 0; transform: translate(-4px, 4px); transition: opacity .3s, transform .4s var(--ease); }
+.hero-social a:hover, .hero-social a:focus-visible { color: var(--ink); padding-left: 6px; }
+.hero-social a:hover::after, .hero-social a:focus-visible::after { opacity: 1; transform: none; }
+.hero-social svg { flex: none; width: 15px; height: 15px; fill: currentColor; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 
 /* ========== Stats ========== */
@@ -702,7 +710,11 @@ body.viewing #home { display: none; }
   .hero-name { gap: 0; flex-direction: column; align-items: center; font-size: clamp(40px, 14vw, 140px); min-width: 0; }
   .hero-intro { grid-column: 1; grid-row: 2; justify-self: center; padding: 24px 0 0; }
   .hero-social { grid-column: 1; grid-row: 3; justify-self: center; grid-auto-flow: column; padding: 22px 0 10px; gap: 18px; }
-  .hero-social a { font-size: 0; gap: 0; } .hero-social svg { width: 20px; height: 20px; }
+  .hero-social { min-width: 0; }
+  .hero-social::before, .hero-social a::after { display: none; }
+  .hero-social li + li { border-top: 0; }
+  .hero-social a { font-size: 0; gap: 0; padding: 0; } .hero-social a:hover { padding-left: 0; }
+  .hero-social svg { width: 20px; height: 20px; }
   .hero-portrait { grid-column: 1; grid-row: 4; justify-self: center; align-self: end; margin-top: 10px; width: clamp(300px, min(92vw, 100svh - 28vw - 350px), 820px); }
 }
 @media (max-width: 900px) {

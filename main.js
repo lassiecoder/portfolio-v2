@@ -904,7 +904,9 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
   const TARGETS = "a, button, [role=button], .acc-head, label, select";
   // Innermost wins: a link inside a Beyond Code card (incl. the Publication card's "View" label),
   // then any normal interactive element, then a Beyond Code card itself.
+  // The "Open to New Opportunities" status pill opts out entirely.
   const resolve = (el) =>
+    el?.closest?.(".pill.status") ? null :
     el?.closest?.(".b-card .link-arrow, .ebook-cta, .xp-li") ||
     el?.closest?.(".xp-head") ||
     el?.closest?.(TARGETS) ||

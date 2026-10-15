@@ -559,6 +559,24 @@ a.b-card:hover, .b-card:has(.b-links):hover { transform: translateY(-6px); box-s
 .b-card .link-arrow { align-self: flex-start; }
 .b-card > .link-arrow, .b-links { margin-top: auto; }
 .b-links { display: flex; gap: 20px; flex-wrap: wrap; }
+/* Full-width recognition strip under the two Beyond Code cards */
+.b-award { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 22px; }
+.b-award .award-badge {
+  flex: none; width: 84px; aspect-ratio: 1; border-radius: 50%; display: grid; place-content: center; text-align: center;
+  background: radial-gradient(circle at 30% 25%, #ffb547, #ff9900 55%, #c76a00); color: #111;
+  box-shadow: 0 10px 24px rgba(255,153,0,.25); transition: transform .6s var(--ease);
+}
+.b-award .award-badge small { font-family: var(--mono); font-size: 10px; font-weight: 600; }
+.b-award .award-badge b { font-size: 22px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+.b-award:hover .award-badge { transform: rotate(-8deg) scale(1.05); }
+.b-award .award-text { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.b-award > .link-arrow { margin-top: 0; align-self: center; white-space: nowrap; }
+@media (max-width: 640px) {
+  .b-award { flex-wrap: wrap; }
+  .b-award .award-badge { width: 64px; }
+  .b-award .award-badge b { font-size: 17px; }
+  .b-award .award-text { flex-basis: calc(100% - 86px); }
+}
 /* Publication card: a filled button with a soft pulse so the eBook link gets noticed */
 .ebook-cta { align-self: flex-start; margin-top: auto; padding: 12px 22px; font-size: 14px; animation: ebook-pulse 2.4s ease-out infinite; }
 a.b-card:hover .ebook-cta { transform: translateY(-2px); animation: none; }

@@ -505,10 +505,10 @@ html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *
 .xp-co h3 { display: inline; }
 .xp-li {
   position: relative; z-index: 1;                                            /* above the stretched toggle */
-  display: inline-grid; place-items: center; width: 22px; height: 22px; margin-left: 8px; vertical-align: -3px;
+  display: inline-grid; place-items: center; width: 26px; height: 26px; margin-left: 8px; vertical-align: -4px;
   border-radius: 5px; color: #8a8a8a; transition: color .25s, background .25s;
 }
-.xp-li svg { width: 14px; height: 14px; fill: currentColor; }
+.xp-li svg { width: 18px; height: 18px; fill: currentColor; }
 .xp-li:hover, .xp-li:focus-visible { color: #fff; background: #0a66c2; outline: none; }
 .xp-row h3 { font-size: 16px; font-weight: 600; }
 .xp-row .role { color: #9a9a9a; font-size: 14px; display: block; margin-top: 2px; }
@@ -551,6 +551,15 @@ a.b-card:hover, .b-card:has(.b-links):hover { transform: translateY(-6px); box-s
 .b-card .link-arrow { align-self: flex-start; }
 .b-card > .link-arrow, .b-links { margin-top: auto; }
 .b-links { display: flex; gap: 20px; flex-wrap: wrap; }
+/* Publication card: a filled button with a soft pulse so the eBook link gets noticed */
+.ebook-cta { align-self: flex-start; margin-top: auto; padding: 12px 22px; font-size: 14px; animation: ebook-pulse 2.4s ease-out infinite; }
+a.b-card:hover .ebook-cta { transform: translateY(-2px); animation: none; }
+a.b-card:hover .ebook-cta .arrow { transform: translate(2px, -2px) rotate(45deg); }
+@keyframes ebook-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink) 45%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 12px color-mix(in srgb, var(--ink) 0%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { .ebook-cta { animation: none; } }
 .agenda { margin: 0; padding: 0; list-style: none; counter-reset: ag; display: grid; font-size: 13.5px; color: var(--ink-2); }
 .agenda li { counter-increment: ag; display: grid; grid-template-columns: 28px 1fr; padding: 7px 0; border-top: 1px solid var(--line); }
 .agenda li::before { content: counter(ag, decimal-leading-zero); font-family: var(--mono); font-size: 11.5px; color: var(--muted); padding-top: 2px; }

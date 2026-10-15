@@ -220,10 +220,9 @@
         ><span class="short">Open to work</span></a
       >
       <nav class="nav-links" aria-label="Primary">
-        <a href="#work">Work <sup>[07]</sup></a>
-        <a href="#expertise">Expertise <sup>[05]</sup></a>
-        <a href="#ai">AI <sup>[03]</sup></a>
+        <a href="#work">Work <sup>[08]</sup></a>
         <a href="#experience">Experience <sup>[6y+]</sup></a>
+        <a href="#expertise">Expertise <sup>[05]</sup></a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="nav-actions">
@@ -433,131 +432,7 @@
         <div class="grid" id="grid"></div>
       </section>
 
-      <!-- ============ EXPERTISE ============ -->
-      <section class="section expertise" id="expertise">
-        <div class="section-head reveal">
-          <span class="ghost" data-parallax>EXPERTISE</span>
-          <h2>/EXPERTISE</h2>
-        </div>
-        <div class="accordion" id="accordion"></div>
-      </section>
-
       <!-- ============ EXPERIENCE ============ -->
-      <!-- ============ HOW I WORK WITH AI ============ -->
-      <section class="section ai-work" id="ai">
-        <div class="section-head reveal">
-          <span class="ghost" data-parallax>WITH AI</span>
-          <h2>/HOW I WORK WITH AI</h2>
-        </div>
-        <p class="ai-lede reveal">
-          I use AI to move faster, not to think less. It writes the first draft.
-          I&nbsp;review every diff, test it on real devices, and own
-          what&nbsp;ships.
-        </p>
-
-        <div class="ai-grid">
-          <article class="ai-card reveal">
-            <div class="ai-body">
-              <div class="ai-tags">
-                <span class="ai-tool">Claude Code</span
-                ><span class="ai-kind">Zataverse · client work</span>
-              </div>
-              <h3>Refactoring social sign-in for Socialaize</h3>
-              <dl>
-                <dt>AI did</dt>
-                <dd>
-                  Mapped the existing OAuth and sign-up flows and proposed a
-                  refactor plan, then drafted the new provider handlers.
-                </dd>
-                <dt class="me">I did</dt>
-                <dd class="me">
-                  Rewrote the token and session handling myself, since auth is
-                  too sensitive to accept unreviewed. Tested each provider's
-                  sign-in, sign-up and failure paths by hand, and fixed the push
-                  notification handling the refactor touched.
-                </dd>
-              </dl>
-            </div>
-          </article>
-
-          <article class="ai-card reveal">
-            <div class="ai-body">
-              <div class="ai-tags">
-                <span class="ai-tool">Claude Code</span
-                ><span class="ai-kind">The Adecco Group</span>
-              </div>
-              <h3>Automating PR checks with GitHub Actions</h3>
-              <dl>
-                <dt>AI did</dt>
-                <dd>
-                  Generated the first version of the workflow YAML for lint,
-                  test and build checks.
-                </dd>
-                <dt class="me">I did</dt>
-                <dd class="me">
-                  Wired the checks into branch protection as required status
-                  checks, fixed caching and trigger issues in the generated
-                  workflow, and rolled it out to the team.
-                </dd>
-              </dl>
-              <p class="ai-outcome">−40% manual review overhead</p>
-            </div>
-          </article>
-
-          <article class="ai-card reveal">
-            <!-- Optional screenshot: add assets/ai-sniffspot.webp, then put back:
-          <figure class="ai-shot"><img src="assets/ai-sniffspot.webp" alt="Review log listing bugs caught in AI-written code" loading="lazy" /></figure> -->
-            <div class="ai-body">
-              <div class="ai-tags">
-                <span class="ai-tool">Claude Code</span
-                ><span class="ai-kind">Personal project</span>
-              </div>
-              <h3>Promo codes for a React Native + Rails shop</h3>
-              <dl>
-                <dt>AI did</dt>
-                <dd>
-                  Wrote most of the feature from my spec, across the mobile app
-                  and the Rails API.
-                </dd>
-                <dt class="me">I did</dt>
-                <dd class="me">
-                  Caught a hooks bug on a real device that the tests missed.
-                  Fixed checkout tests that were passing for the wrong reason.
-                  Cut the scope back to what was actually asked, and said
-                  clearly in the submission which parts AI wrote.
-                </dd>
-              </dl>
-              <!-- Outcome: add one real result, e.g. <p class="ai-outcome">…</p> -->
-            </div>
-          </article>
-
-          <!-- Triagely card: add it back once the two lines below are real.
-        <article class="ai-card reveal">
-          <figure class="ai-shot"><img src="assets/ai-triagely.png" alt="Triagely support inbox with AI priority and category tags" loading="lazy" onerror="this.parentElement.remove()" /></figure>
-          <div class="ai-body">
-            <span class="ai-tool">Lovable</span>
-            <h3>Triagely, an AI-first support inbox</h3>
-            <dl>
-              <dt>AI did</dt>
-              <dd>TODO: what Lovable generated (e.g. the inbox UI and triage flow)</dd>
-              <dt class="me">I did</dt>
-              <dd class="me">TODO: what you checked, fixed or changed</dd>
-            </dl>
-          </div>
-        </article>
-        --></div>
-
-        <div class="ai-rules reveal">
-          <h4>// my rules for AI</h4>
-          <ol>
-            <li>AI writes the first draft. I write the last one.</li>
-            <li>Never merge code I can't explain.</li>
-            <li>Green tests aren't proof. I check why they pass.</li>
-            <li>I'm upfront about what AI wrote.</li>
-          </ol>
-        </div>
-      </section>
-
       <section class="section experience" id="experience">
         <div class="section-head row reveal">
           <span class="ghost" data-parallax>EXPERIENCE</span>
@@ -566,6 +441,15 @@
         </div>
         <ul class="xp" id="xp"></ul>
         <div class="xp-preview" id="xpPreview" aria-hidden="true"></div>
+      </section>
+
+      <!-- ============ EXPERTISE ============ -->
+      <section class="section expertise" id="expertise">
+        <div class="section-head reveal">
+          <span class="ghost" data-parallax>EXPERTISE</span>
+          <h2>/EXPERTISE</h2>
+        </div>
+        <div class="accordion" id="accordion"></div>
       </section>
 
       <!-- ============ BEYOND CODE ============ -->
@@ -577,7 +461,7 @@
         <div class="beyond-grid">
           <a
             class="b-card reveal"
-            href="https://www.linkedin.com/feed/update/urn:li:activity:7331723306955395072"
+            href="https://code.lassiecoder.com"
             target="_blank"
             rel="noopener"
           >
@@ -608,7 +492,7 @@
               Includes project source code and prompt templates · Apple Books,
               Fable · Google Play Books soon
             </p>
-            <span class="link-arrow">View ↗</span>
+            <span class="btn btn-dark ebook-cta">Get the eBook <span class="arrow">↗</span></span>
           </a>
           <div
             class="b-card reveal"

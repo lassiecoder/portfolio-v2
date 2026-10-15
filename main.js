@@ -9,7 +9,7 @@ const PROJECTS = [
     slug: "rn-build-doctor",
     title: "RN Build Doctor — Find the Real Build Error",
     kind: "NPM Package",
-    filter: ["oss", "mobile"],
+    filter: ["oss"],
     badge: "Open Source",
     tags: ["NPM Package", "CLI", "React Native"],
     summary:
@@ -175,6 +175,57 @@ const PROJECTS = [
       ],
     },
     accent: "#4b5563",
+  },
+  {
+    slug: "gathr",
+    title: "Gathr — Events & RSVPs",
+    kind: "Web App",
+    filter: ["web", "oss"],
+    badge: "Personal Project",
+    tags: ["Web App", "React", "Express"],
+    summary:
+      "A full-stack events app: browse, create and RSVP to events, with a waitlist that promotes people automatically and live updates for every viewer. I built both sides: the React frontend and the Express + TypeScript backend (REST API, validation, RSVP and waitlist rules, a live-update feed and calendar export), and deployed it on Render as a single service.",
+    highlights: [
+      "Backend built by me: Express 5 + TypeScript REST API with Zod validation, deployed on Render",
+      "RSVP with optimistic updates, plus a first-come waitlist that auto-promotes when a spot opens",
+      "Live counts for every viewer over Server-Sent Events, with no third-party service",
+      "Add to Google Calendar, Outlook, or download a standards-compliant .ics file",
+      "Shareable URL filters, search, pagination, and empty, error and loading states",
+      "50 tests across the API and frontend (Vitest, Supertest, Testing Library)",
+    ],
+    role: "Full-stack: Frontend, Backend & Deployment",
+    stack: "React 19, TypeScript, TanStack Query, Express 5, Zod, Render",
+    links: [
+      {
+        label: "View Code",
+        href: "https://github.com/lassiecoder/gathr",
+      },
+      {
+        label: "Live Preview",
+        href: "https://gathr-lgoo.onrender.com/",
+        primary: true,
+      },
+    ],
+    preview: {
+      slides: [
+        {
+          xl: "assets/gathr-xl-01.webp",
+          sm: "assets/gathr-sm-01.webp",
+          alt: "Gathr: upcoming events grid with category filters, dates and how many people are going",
+        },
+        {
+          xl: "assets/gathr-xl-02.webp",
+          sm: "assets/gathr-sm-02.webp",
+          alt: "Gathr: event detail with a live capacity bar and RSVP panel",
+        },
+        {
+          xl: "assets/gathr-xl-03.webp",
+          sm: "assets/gathr-sm-03.webp",
+          alt: "Gathr: create an event form with title, category, date and time fields",
+        },
+      ],
+    },
+    accent: "#ff6b4a",
   },
   {
     slug: "npx-lassiecoder",
@@ -600,7 +651,7 @@ const esc = (s) =>
 // One image renders statically; several become a slideshow (see initSlideshows).
 // Intrinsic widths of images that have smaller -640/-1200 variants (made at build time),
 // so the browser can download the size it actually displays.
-const IMG_W = {"rn-build-doctor-xl-01.webp": 2256, "rn-build-doctor-xl-02.webp": 2256, "rn-build-doctor-xl-03.webp": 2256, "adecco-xl-01.webp": 2256, "adecco-xl-02.webp": 2256, "ai-1-web.webp": 1200, "ai-2-web.webp": 1200, "ai-3.webp": 1200, "auth-1.webp": 1200, "auth-2.webp": 1200, "auth-3.webp": 1200, "edu-xl.webp": 2256, "enterprise-sm-01.webp": 2256, "enterprise-sm-02.webp": 2256, "enterprise-sm-03.webp": 2256, "mobile-app-development-1.webp": 900, "mobile-app-development-2.webp": 900, "mobile-app-development-3.webp": 900, "portrait.webp": 1000, "release-devops-1.webp": 1200, "release-devops-2.webp": 1200, "release-devops-3.webp": 1200, "traya-xl.webp": 2256, "wayk-xl.webp": 2256, "web-app-1.webp": 1200, "web-app-2.webp": 1200, "web-app-3.webp": 1200};
+const IMG_W = {"gathr-xl-01.webp": 2256, "gathr-xl-02.webp": 2256, "gathr-xl-03.webp": 2256, "rn-build-doctor-xl-01.webp": 2256, "rn-build-doctor-xl-02.webp": 2256, "rn-build-doctor-xl-03.webp": 2256, "adecco-xl-01.webp": 2256, "adecco-xl-02.webp": 2256, "ai-1-web.webp": 1200, "ai-2-web.webp": 1200, "ai-3.webp": 1200, "auth-1.webp": 1200, "auth-2.webp": 1200, "auth-3.webp": 1200, "edu-xl.webp": 2256, "enterprise-sm-01.webp": 2256, "enterprise-sm-02.webp": 2256, "enterprise-sm-03.webp": 2256, "mobile-app-development-1.webp": 900, "mobile-app-development-2.webp": 900, "mobile-app-development-3.webp": 900, "portrait.webp": 1000, "release-devops-1.webp": 1200, "release-devops-2.webp": 1200, "release-devops-3.webp": 1200, "traya-xl.webp": 2256, "wayk-xl.webp": 2256, "web-app-1.webp": 1200, "web-app-2.webp": 1200, "web-app-3.webp": 1200};
 function srcset(path) {
   const w = IMG_W[path.split("/").pop()];
   if (!w) return "";
@@ -690,7 +741,7 @@ $("#accordion").innerHTML = EXPERTISE.map(
 ).join("");
 
 $("#xp").innerHTML = EXPERIENCE.map(
-  (x, i) => `<li class="xp-row reveal" data-i="${i}">
+  (x, i) => `<li class="xp-row reveal${i === 0 ? " open" : ""}" data-i="${i}">
     <div class="xp-head">
       <span class="xp-co">
         <h3>${esc(x.company)}</h3>${
@@ -702,7 +753,7 @@ $("#xp").innerHTML = EXPERIENCE.map(
       </span>
       <span class="when">${esc(x.when)}<span class="where">${esc(x.where)}</span></span>
       <!-- Stretched over the whole row (see .xp-toggle::before), so clicking anywhere expands it -->
-      <button class="xp-toggle" aria-expanded="false" aria-label="Show what I did at ${esc(x.company)}"><span class="ico">+</span></button>
+      <button class="xp-toggle" aria-expanded="${i === 0}" aria-label="Show what I did at ${esc(x.company)}"><span class="ico">+</span></button>
     </div>
     <div class="xp-detail"><div>
       <ul>${x.points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
@@ -852,12 +903,12 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
     label = $(".insp-label", insp);
   const TARGETS = "a, button, [role=button], .acc-head, label, select";
   // Innermost wins: a link inside a Beyond Code card (incl. the Publication card's "View" label),
-  // then any normal interactive element, then a showcase card itself (Beyond Code, How I work with AI).
+  // then any normal interactive element, then a Beyond Code card itself.
   const resolve = (el) =>
-    el?.closest?.(".b-card .link-arrow, .xp-li") ||
+    el?.closest?.(".b-card .link-arrow, .ebook-cta, .xp-li") ||
     el?.closest?.(".xp-head") ||
     el?.closest?.(TARGETS) ||
-    el?.closest?.(".b-card, .ai-card") ||
+    el?.closest?.(".b-card") ||
     null;
   const PAD = 6;
   let target = null,

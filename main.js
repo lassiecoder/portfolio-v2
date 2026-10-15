@@ -296,6 +296,47 @@ const PROJECTS = [
     screen: "#f5f6ff",
   },
   {
+    slug: "edufund-web",
+    title: "EduFund — Education Planning Website",
+    kind: "Web App",
+    filter: ["web"],
+    badge: "Real Project",
+    tags: ["Web App", "EduFund"],
+    summary:
+      "EduFund's website, where parents plan and invest for their children's education: education investments, education loans, counsellor sessions and study-abroad planning in one place. I worked on it as a Product Engineer at EduFund, building it with React.js.",
+    highlights: [
+      "Built with React.js as part of the EduFund product team",
+      "Entry points for investments, education loans, counsellors and immigration by investment",
+      "Education cost planning that shows what college will cost in the years ahead",
+      "Responsive layouts for parents browsing on desktop and mobile",
+      "Also built a white-label web solution for ICICI, a major banking partner, using Next.js",
+    ],
+    role: "Product Engineer",
+    stack: "React.js",
+    links: [
+      {
+        label: "Visit Website",
+        href: "https://www.edufund.in/",
+        primary: true,
+      },
+    ],
+    preview: {
+      slides: [
+        {
+          xl: "assets/edufund-web-xl-01.webp",
+          sm: "assets/edufund-web-sm-01.webp",
+          alt: "EduFund website: India's #1 platform to help you plan for your child's education",
+        },
+        {
+          xl: "assets/edufund-web-xl-02.webp",
+          sm: "assets/edufund-web-sm-02.webp",
+          alt: "EduFund website: investments, loans, counsellors and immigration by investment",
+        },
+      ],
+    },
+    accent: "#1e1b6e",
+  },
+  {
     slug: "adecco",
     title: "Adecco — Job Placement App",
     kind: "Mobile App",
@@ -651,7 +692,7 @@ const esc = (s) =>
 // One image renders statically; several become a slideshow (see initSlideshows).
 // Intrinsic widths of images that have smaller -640/-1200 variants (made at build time),
 // so the browser can download the size it actually displays.
-const IMG_W = {"gathr-xl-01.webp": 2256, "gathr-xl-02.webp": 2256, "gathr-xl-03.webp": 2256, "rn-build-doctor-xl-01.webp": 2256, "rn-build-doctor-xl-02.webp": 2256, "rn-build-doctor-xl-03.webp": 2256, "adecco-xl-01.webp": 2256, "adecco-xl-02.webp": 2256, "ai-1-web.webp": 1200, "ai-2-web.webp": 1200, "ai-3.webp": 1200, "auth-1.webp": 1200, "auth-2.webp": 1200, "auth-3.webp": 1200, "edu-xl.webp": 2256, "enterprise-sm-01.webp": 2256, "enterprise-sm-02.webp": 2256, "enterprise-sm-03.webp": 2256, "mobile-app-development-1.webp": 900, "mobile-app-development-2.webp": 900, "mobile-app-development-3.webp": 900, "portrait.webp": 1000, "release-devops-1.webp": 1200, "release-devops-2.webp": 1200, "release-devops-3.webp": 1200, "traya-xl.webp": 2256, "wayk-xl.webp": 2256, "web-app-1.webp": 1200, "web-app-2.webp": 1200, "web-app-3.webp": 1200};
+const IMG_W = {"edufund-web-xl-01.webp": 2256, "edufund-web-xl-02.webp": 2256, "gathr-xl-01.webp": 2256, "gathr-xl-02.webp": 2256, "gathr-xl-03.webp": 2256, "rn-build-doctor-xl-01.webp": 2256, "rn-build-doctor-xl-02.webp": 2256, "rn-build-doctor-xl-03.webp": 2256, "adecco-xl-01.webp": 2256, "adecco-xl-02.webp": 2256, "ai-1-web.webp": 1200, "ai-2-web.webp": 1200, "ai-3.webp": 1200, "auth-1.webp": 1200, "auth-2.webp": 1200, "auth-3.webp": 1200, "edu-xl.webp": 2256, "enterprise-sm-01.webp": 2256, "enterprise-sm-02.webp": 2256, "enterprise-sm-03.webp": 2256, "mobile-app-development-1.webp": 900, "mobile-app-development-2.webp": 900, "mobile-app-development-3.webp": 900, "portrait.webp": 1000, "release-devops-1.webp": 1200, "release-devops-2.webp": 1200, "release-devops-3.webp": 1200, "traya-xl.webp": 2256, "wayk-xl.webp": 2256, "web-app-1.webp": 1200, "web-app-2.webp": 1200, "web-app-3.webp": 1200};
 function srcset(path) {
   const w = IMG_W[path.split("/").pop()];
   if (!w) return "";

@@ -678,6 +678,31 @@ const EXPERIENCE = [
   },
 ];
 
+// Community: one card per event or meetup post, newest first (by when the post went up).
+// img is the post's first photo, without the LinkedIn/X chrome; dates are when the post went up.
+const LI = "https://www.linkedin.com/";
+const COMMUNITY = [
+  { img: "rn-build-doctor", kind: "Launch", when: "Oct 2026", title: "Launched RN Build Doctor", where: "Open-source CLI for React Native build failures", on: "LinkedIn", href: LI + "posts/lassiecoder_reactnative-expo-mobiledevelopment-share-7516445295879049216-7X0b", alt: "Selfie at a desk with RN Build Doctor open on two monitors" },
+  { img: "shebuilds", kind: "Feature", when: "Mar 2026", title: "AWS She Builds Tech", where: "Featured by AWS UG for Women In Tech India", on: "LinkedIn", href: LI + "feed/update/urn:li:share:7435198991052652544/", alt: "AWS She Builds Tech: 30 Days of AWS Insights feature card with Priyanka's portrait" },
+  { img: "16", kind: "Reflection", when: "Nov 2025", title: "Growth isn't a straight line", where: "Five years into frontend development", on: "LinkedIn", href: LI + "feed/update/urn:li:activity:7398725414334058496", alt: "Selfie at a desk with an AWS Cloud Practitioner course on screen" },
+  { img: "17", kind: "Recognition", when: "Oct 2025", title: "AWS re:Invent 2025", where: "Selected for the All Builders Welcome Grant", on: "LinkedIn", href: LI + "feed/update/urn:li:activity:7387467149948362752", alt: "AWS re:Invent All Builders Welcome Grant acceptance email" },
+  { img: "15", pos: "center 24%", kind: "Publication", when: "Sep 2025", title: "E-book featured on Medium", where: "AI + Gemini for Web Developers", on: "LinkedIn", href: LI + "feed/update/urn:li:activity:7375709928671346688", alt: "Holding the AI + Gemini for Web Developers e-book" },
+  { img: "01", kind: "Speaker", when: "Mar 2025", title: "My first talk as a speaker", where: "TechNexus · Microsoft AI & Chai", on: "LinkedIn", href: LI + "feed/update/urn:li:activity:7306864289519128576", alt: "Presenting on stage at Microsoft Bengaluru" },
+  { img: "04", kind: "Speaker", when: "Mar 2025", title: "Speaker announcement", where: "Microsoft AI & Chai · TechNexus Community", on: "LinkedIn", href: LI + "posts/technexuscommunity_microsoftai-azureopenai-aiinnovation-activity-7302707221094666241-9zWP", alt: "TechNexus speaker poster for Microsoft AI and Chai" },
+  { img: "07", kind: "Meetup", when: "Sep 2024", title: "Impromptu tech session", where: "Talks, connections and tech inspiration", on: "X", href: "https://x.com/lassiecoder/status/1836049315778678872", alt: "Developers chatting at an informal meetup" },
+  { img: "05", kind: "Conference", when: "Sep 2024", title: "August, wrapped", where: "ServerlessDays Bengaluru with the speakers", on: "LinkedIn", href: LI + "posts/priyanka-s-b79401142_thats-a-wrap-for-serverlessdays-bengaluru-activity-7235948907954892802-3tpT", alt: "With speakers at ServerlessDays Bengaluru" },
+  { img: "12", kind: "Conference", when: "Sep 2024", title: "That's a wrap", where: "ServerlessDays Bengaluru · shared by Eric Johnson", on: "X", href: "https://x.com/edjgeek/status/1830168978603282712", alt: "ServerlessDays Bengaluru 2024 banner" },
+  { img: "03", kind: "Conference", when: "Aug 2024", title: "ServerlessDays Bengaluru", where: "A shout-out to the speakers", on: "LinkedIn", href: LI + "posts/priyanka-s-b79401142_serverlessdays-bangalore-techcommunity-activity-7235735531211345920-RoQg", alt: "Talks on stage at ServerlessDays Bengaluru" },
+  { img: "08", kind: "Conference", when: "Aug 2024", title: "A day with the OG crew", where: "ServerlessDays Bengaluru", on: "X", href: "https://x.com/lassiecoder/status/1829883911675183349", alt: "Group selfie with friends at ServerlessDays Bengaluru" },
+  { img: "09", kind: "Meetup", when: "Aug 2024", title: "GitTogether Bengaluru", where: "By GitHub", on: "LinkedIn", href: LI + "posts/priyanka-s-b79401142_gittogether-gittogetherbengaluru-opensource-activity-7233815879728123904-XVV9", alt: "Group photo at GitTogether Bengaluru" },
+  { img: "13", kind: "Meetup", when: "Aug 2024", title: "The Platform Meetup", where: "Kubernetes & DevOps · Bengaluru", on: "X", href: "https://x.com/lassiecoder/status/1823067516165308606", alt: "Polaroid-style photo from Loft Labs on a meetup t-shirt" },
+  { img: "14", kind: "Meetup", when: "Jul 2024", title: "GitTogether Bengaluru", where: "Open source community meetup", on: "LinkedIn", href: LI + "posts/priyanka-s-b79401142_gittogether-opensource-techcommunity-activity-7215039647247159296-g6qD", alt: "Group photo at a GitTogether meetup" },
+  { img: "06", kind: "Conference", when: "Jun 2024", title: "GitHub Constellation", where: "GitHub · Bengaluru", on: "LinkedIn", href: LI + "posts/priyanka-s-b79401142_githubconstellation-oss-developercommunity-activity-7206725289031196673-8D-l", alt: "Selfie in front of a packed GitHub Constellation hall" },
+  { img: "11", kind: "Conference", when: "Jun 2024", title: "Elevate Conference & Career Fair", where: "Girl Geek X · Virtual", on: "LinkedIn", href: LI + "posts/priyanka-s-b79401142_elevatevirtualconference-girlgeekx-networking-activity-7204481662913544193-aFAM", alt: "Elevate virtual conference streaming on a monitor" },
+  { img: "02", kind: "Meetup", when: "Feb 2024", title: "Keploy GitTogether", where: "Google, Bengaluru", on: "LinkedIn", href: LI + "posts/priyanka-s-b79401142_keploy-gittogether-opensourcecommunity-activity-7169236453577646080-YoXh", alt: "Google guest badge for the Keploy GitTogether" },
+  { img: "10", kind: "Meetup", when: "Feb 2024", title: "Favs from the meetup", where: "Shared by Aditya Oberai", on: "X", href: "https://x.com/adityaoberai1/status/1763221813625331791", alt: "Selfie with friends outside the venue after the meetup" },
+];
+
 /* =========================================================
    Helpers
    ========================================================= */
@@ -768,7 +793,7 @@ function cardHTML(p) {
 $("#grid").innerHTML = PROJECTS.map(cardHTML).join("");
 
 $("#accordion").innerHTML = EXPERTISE.map(
-  (s, i) => `<div class="acc-item${i === 0 ? " open" : ""}">
+  (s, i) => `<div class="acc-item reveal${i === 0 ? " open" : ""}">
     <button class="acc-head" aria-expanded="${i === 0}"><span>${esc(s.title)}</span><span class="ico">↗</span></button>
     <div class="acc-body"><div><div class="acc-inner">
       <div>
@@ -944,12 +969,13 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
     label = $(".insp-label", insp);
   const TARGETS = "a, button, [role=button], .acc-head, label, select";
   // Innermost wins: a link inside a Beyond Code card (incl. the Publication card's "View" label),
+  // a Community card's post links, then the Community card itself (its title link is stretched over it),
   // then any normal interactive element, then a Beyond Code card itself.
   // The "Open to New Opportunities" status pill opts out entirely.
   const resolve = (el) =>
     el?.closest?.(".pill.status") ? null :
-    el?.closest?.(".b-card .link-arrow, .ebook-cta, .xp-li") ||
-    el?.closest?.(".xp-head") ||
+    el?.closest?.(".b-card .link-arrow, .ebook-cta, .xp-li, .ev-posts a") ||
+    el?.closest?.(".xp-head, .ev") ||
     el?.closest?.(TARGETS) ||
     el?.closest?.(".b-card") ||
     null;
@@ -1063,6 +1089,26 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
   );
 }
 
+// Community: the title link is stretched over the card (see .ev-title a::after); the post link sits above it.
+$("#events").innerHTML = COMMUNITY.map(
+  (e) => `<li class="ev reveal">
+    <div class="ev-img"${e.pos ? ` style="--pos: ${e.pos}"` : ""}><img src="assets/community-${e.img}.webp" alt="${esc(e.alt)}" loading="lazy" decoding="async" /></div>
+    <div class="ev-body">
+      <span class="ev-meta">${e.kind} · ${e.when}</span>
+      <h3 class="ev-title"><a href="${e.href}" target="_blank" rel="noopener">${esc(e.title)}</a></h3>
+      <span class="ev-where">${esc(e.where)}</span>
+      <span class="ev-posts"><a href="${e.href}" target="_blank" rel="noopener">${e.on} ↗</a></span>
+    </div>
+  </li>`,
+).join("");
+$("#eventsMore").addEventListener("click", (e) => {
+  const open = $("#events").classList.toggle("open");
+  e.currentTarget.setAttribute("aria-expanded", open);
+  e.currentTarget.firstChild.textContent = open ? "Show less " : "Show all posts ";
+  if (open) observeReveals(); // the cards that just appeared fade in like the rest
+  else $("#community").scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth" });
+});
+
 // Speaking card: the whole card opens the LinkedIn post; "View slides" stays its own link
 document.querySelectorAll(".b-card[data-href]").forEach((card) =>
   card.addEventListener("click", (e) => {
@@ -1131,18 +1177,38 @@ addEventListener(
   { passive: true },
 );
 
-// Reveal on scroll + count-up stats
+// Reveal on scroll + count-up stats. Elements reveal once they are 15% clear of the bottom edge, so the
+// animation plays where it can be seen; siblings that arrive together are staggered.
+function countUp(el) {
+  const [, end, rest] = el.textContent.match(/^(\d+)(.*)$/) || [];
+  if (!end) return;
+  const t0 = performance.now(), dur = 1200;
+  const tick = (t) => {
+    const p = Math.min((t - t0) / dur, 1);
+    el.textContent = Math.round(end * (1 - (1 - p) ** 3)) + rest;
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
 const io = new IntersectionObserver(
   (entries) =>
-    entries.forEach((en) => {
-      if (!en.isIntersecting) return;
-      en.target.classList.add("in");
-      io.unobserve(en.target);
-    }),
-  { threshold: 0.12 },
+    entries
+      .filter((en) => en.isIntersecting)
+      .forEach(({ target: el }, i) => {
+        io.unobserve(el);
+        const delay = Math.min(i, 6) * 90;
+        el.style.transitionDelay = `${delay}ms`;
+        el.classList.add("in");
+        if (el.matches(".stats")) el.querySelectorAll("strong").forEach(countUp);
+        // drop the stagger once it has played, so hover transitions respond straight away
+        setTimeout(() => (el.style.transitionDelay = ""), delay + 1200);
+      }),
+  { rootMargin: "0px 0px -15% 0px" },
 );
 const observeReveals = () =>
-  document.querySelectorAll(".reveal:not(.in)").forEach((el) => io.observe(el));
+  document.querySelectorAll(".reveal:not(.in)").forEach((el) =>
+    reduceMotion.matches ? el.classList.add("in") : io.observe(el),
+  );
 observeReveals();
 
 // Ghost title parallax

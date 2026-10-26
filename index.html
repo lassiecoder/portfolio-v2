@@ -208,6 +208,36 @@
     <link rel="manifest" href="site.webmanifest" />
   </head>
   <body>
+    <!-- ============ E-BOOK BAR ============ -->
+    <aside class="promo" id="promo" aria-label="E-book">
+      <a
+        class="promo-link"
+        href="https://code.lassiecoder.com"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="promo-tag"
+          ><svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5a1.5 1.5 0 0 0 0 3H20" />
+            <path d="M8 7h8M8 11h6" /></svg
+          >E-book</span
+        >
+        <span class="promo-text"
+          ><b>AI + Gemini for Web Developers</b
+          ><span class="promo-sub"> · A Beginner's Practical Guide</span></span
+        >
+        <span class="promo-cta">Get the eBook <span class="arrow">↗</span></span>
+      </a>
+      <button
+        class="promo-close"
+        id="promoClose"
+        type="button"
+        aria-label="Dismiss e-book announcement"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+      </button>
+    </aside>
+
     <!-- ============ NAV ============ -->
     <header class="nav" id="nav">
       <a href="#top" class="pill status"

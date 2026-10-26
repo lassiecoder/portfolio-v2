@@ -971,9 +971,9 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
   // Innermost wins: a link inside a Beyond Code card (incl. the Publication card's "View" label),
   // a Community card's post links, then the Community card itself (its title link is stretched over it),
   // then any normal interactive element, then a Beyond Code card itself.
-  // The "Open to New Opportunities" status pill opts out entirely.
+  // The "Open to New Opportunities" status pill and the e-book bar opt out entirely.
   const resolve = (el) =>
-    el?.closest?.(".pill.status") ? null :
+    el?.closest?.(".pill.status, .promo") ? null :
     el?.closest?.(".b-card .link-arrow, .ebook-cta, .xp-li, .ev-posts a") ||
     el?.closest?.(".xp-head, .ev") ||
     el?.closest?.(TARGETS) ||
@@ -1229,6 +1229,9 @@ addEventListener(
   },
   { passive: true },
 );
+
+// E-book bar: dismissing collapses it (see --promo-h) for this page view only; a new tab or refresh shows it again
+$("#promoClose").addEventListener("click", () => root.classList.add("promo-off"));
 
 // Copy email
 const toast = $("#toast");

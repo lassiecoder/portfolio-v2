@@ -28,6 +28,10 @@ Four stats that rise in one after another as they scroll into view, with the num
 
 ![Stats strip](docs/screenshots/stats.webp)
 
+### Open source
+
+Pull requests I've contributed to other projects (Expo, Expo Agent CLI, React Native Directory), loaded live from the GitHub API, latest first. The home section shows the latest five. `#/open-source` lists all of them, and each PR has its own page (`#/open-source/<owner>/<repo>/<number>`): status, who merged it and when, commits, files and +/− counts, the full description (why and how) and the files changed. Responses are cached in `sessionStorage` for 15 minutes, which keeps visitors well within GitHub's unauthenticated rate limit.
+
 ### Selected work
 
 Nine projects with live previews (slideshows for projects with several screens), filterable by Mobile App, Web App and Open Source.
@@ -118,6 +122,7 @@ Most content is data at the top of `main.js`:
 | Expertise accordion | `EXPERTISE` |
 | Experience rows | `EXPERIENCE` |
 | Community cards | `COMMUNITY` (photos in `assets/community-*.webp`) |
+| Open source | Nothing to edit: new PRs appear on their own. Hide a repo with `OSS_HIDE` |
 
 The hero, stats, Beyond code and contact sections, the e-book bar, and the SEO metadata are in `index.html`.
 

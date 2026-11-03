@@ -47,7 +47,15 @@ async function start() {
 
   /* ---------- Project pages are hash routes: log them as page views ---------- */
   const slugOf = () => location.hash.match(/^#\/work\/([\w-]+)/)?.[1];
+  const prOf = () => location.hash.match(/^#\/open-source\/([\w.-]+\/[\w.-]+\/\d+)$/)?.[1] || ""; // "owner/repo/number"
   const projectView = (initial) => {
+    // Open source pages: #/open-source and #/open-source/<owner>/<repo>/<number>
+    const oss = location.hash.match(/^#\/open-source(?:\/([\w.-]+\/[\w.-]+\/\d+))?$/);
+    if (oss) {
+      providers.forEach((p) => p.pageView(location.hash.slice(1), initial));
+      track("view_open_source", { pr: oss[1] || "all" });
+      return;
+    }
     const slug = slugOf();
     if (!slug) return;
     providers.forEach((p) => p.pageView(`/work/${slug}`, initial));
@@ -69,7 +77,27 @@ async function start() {
       }),
     { threshold: 0.35 },
   );
-  document.querySelectorAll("#work, #expertise, #experience, #beyond, #community, #contact, .stats").forEach((el) => io.observe(el));
+  document.querySelectorAll("#work, #open-source, #expertise, #experience, #beyond, #community, #contact, .stats").forEach((el) => io.observe(el));
+
+  /* ---------- Open source: GitHub failures, and whether people read a PR to the end ----------
+     main.js reports each GitHub load ("loaded" / "error"); ones from before analytics started are replayed. */
+  const readPRs = new Set();
+  const onOss = ({ type, view, pr = "", reason }) => {
+    if (type === "error") return track("open_source_error", { view, pr, reason });
+    if (view !== "pr" || pr !== prOf() || readPRs.has(pr)) return;
+    const end = document.querySelector("#detailBody .prose > :last-child");
+    if (!end) return;
+    const obs = new IntersectionObserver(([en]) => {
+      if (!en.isIntersecting) return;
+      obs.disconnect();
+      if (prOf() !== pr || readPRs.has(pr)) return; // navigated away meanwhile
+      readPRs.add(pr);
+      track("read_pull_request", { pr });
+    });
+    obs.observe(end);
+  };
+  (window.ossEvents || []).forEach(onOss);
+  addEventListener("oss", (e) => onOss(e.detail));
 
   /* ---------- Every CTA: anything that navigates, opens, or toggles ----------
      One consistent `cta_click` event for all of them (easy to report on), plus a few
@@ -77,13 +105,14 @@ async function start() {
   const CTA = "a[href], button, [role=button], [data-href]";
   const where = (el) =>
     el.closest("header") ? "nav" : el.closest("footer") ? "footer"
-    : el.closest("#detail") ? "project_page" : el.closest("section, article")?.id || "page";
+    : el.closest("#detail") ? (location.hash.startsWith("#/open-source") ? "open_source_page" : "project_page") : el.closest("section, article")?.id || "page";
   const label = (el) =>
     (el.getAttribute("aria-label") || el.querySelector("h3, .full")?.textContent || el.textContent || "")
       .replace(/[↗→←]/g, "").replace(/\s+/g, " ").trim().slice(0, 80);
   const typeOf = (el, dest) =>
     dest.startsWith("mailto:") ? "email" : dest.includes("forms.gle") ? "form"
-    : dest.startsWith("#/work/") ? "project" : dest.startsWith("#") ? "in_page"
+    : dest.startsWith("#/work/") ? "project" : dest.startsWith("#/open-source/") ? "pull_request"
+    : dest === "#/open-source" ? "open_source_list" : dest.startsWith("#") ? "in_page"
     : /^https?:/.test(dest) ? "outbound" : "action";
 
   function onCta(el, how) {
@@ -91,14 +120,35 @@ async function start() {
     const type = typeOf(el, dest);
     const location = where(el);
     const project = slugOf() || "";
-    track("cta_click", { cta_text: label(el), cta_type: type, destination: dest || el.id || type, location, project, input: how });
+    const pr = prOf();
+    track("cta_click", { cta_text: label(el), cta_type: type, destination: dest || el.id || type, location, project, pr, input: how });
 
     // Specific events
     if (type === "email") track("contact", { method: "email", location });
     else if (type === "form") track("contact", { method: "collab_form", location });
     else if (el.id === "copyEmail") track("contact", { method: "copy_email", location });
     else if (type === "project") track("select_project", { project: dest.split("/").pop(), from: location });
-    else if (type === "outbound") track("click_outbound", { link_url: dest, link_text: label(el), location, project });
+    else if (type === "pull_request") {
+      const [owner, repo] = dest.replace("#/open-source/", "").split("/");
+      track("select_pull_request", {
+        pr: dest.replace("#/open-source/", ""),
+        repo: `${owner}/${repo}`,
+        state: el.dataset.state || "",
+        position: Number(el.dataset.pos) || 0, // 1 = the latest PR in that list
+        from: el.closest(".detail-more") ? "more_contributions" : location,
+      });
+    }
+    else if (type === "open_source_list") track("view_all_open_source", { from: location });
+    else if (type === "outbound") {
+      track("click_outbound", { link_url: dest, link_text: label(el), location, project, pr });
+      // Leaving for GitHub from the open source section or its pages: which link, and from which PR
+      if (location === "open-source" || location === "open_source_page")
+        track("open_source_github_click", {
+          pr,
+          link: el.closest(".pr-empty") ? "error_fallback" : el.closest(".prose") ? "description_link"
+            : dest.endsWith("/files") ? "files_changed" : pr ? "pull_request" : "all_pull_requests",
+        });
+    }
     else if (el.id === "themeToggle") setTimeout(() => track("theme_toggle", { theme: document.documentElement.dataset.theme }), 0);
     else if (el.matches(".filters button")) track("filter_work", { filter: el.dataset.filter });
     else if (el.matches(".acc-head")) track("expand_expertise", { area: el.firstElementChild?.textContent.trim(), open: el.getAttribute("aria-expanded") !== "true" });

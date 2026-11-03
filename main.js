@@ -1252,7 +1252,228 @@ $("#copyEmail").addEventListener("click", async (e) => {
 });
 
 /* =========================================================
-   Project detail view (hash routing: #/work/<slug>)
+   Open source: my pull requests to other people's repos, live from the GitHub API.
+   Unauthenticated, so each visitor gets 60 requests an hour (search: 10 a minute);
+   responses are cached in sessionStorage for 15 minutes.
+   ========================================================= */
+const GH_USER = "lassiecoder";
+const OSS_HIDE = ["aditya579/medfetch"]; // 2018 file uploads to a friend's college project, not contributions
+const OSS_ON_HOME = 5;
+const OSS_QUERY = `author:${GH_USER} type:pr -user:${GH_USER} ${OSS_HIDE.map((r) => `-repo:${r}`).join(" ")}`;
+const GH_SEARCH = `https://github.com/search?q=${encodeURIComponent(OSS_QUERY)}&type=pullrequests&s=created&o=desc`;
+
+async function gh(path, accept = "application/vnd.github+json") {
+  const key = `gh:${accept}:${path}`;
+  try {
+    const hit = JSON.parse(sessionStorage.getItem(key));
+    if (hit && Date.now() - hit.t < 15 * 60e3) return hit.v;
+  } catch {}
+  const res = await fetch(`https://api.github.com${path}`, { headers: { Accept: accept } });
+  if (!res.ok)
+    throw new Error(res.status === 403 || res.status === 429 ? "GitHub's rate limit was reached" : `GitHub returned ${res.status}`);
+  const v = await res.json();
+  try {
+    sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), v }));
+  } catch {}
+  return v;
+}
+
+// Works for both search results (pull_request.merged_at) and full pull requests (merged_at)
+const prState = (x) =>
+  (x.pull_request?.merged_at ?? x.merged_at) ? "merged" : x.state === "closed" ? "closed" : x.draft ? "draft" : "open";
+const STATE_LABEL = { merged: "Merged", open: "Open", draft: "Draft", closed: "Closed" };
+const MERGE_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="5" r="2.2"/><circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="12" r="2.2"/><path d="M6 7.2v9.6M6 7.4c0 3 3 4.6 9.8 4.6"/></svg>`;
+const stateHTML = (s) =>
+  `<span class="pr-state is-${s}">${s === "merged" ? MERGE_ICON : "<i></i>"}${STATE_LABEL[s]}</span>`;
+const fmtDate = (iso) => new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+const inline = (s) => esc(s).replace(/`([^`]+)`/g, "<code>$1</code>"); // PR titles use `code` spans
+
+// Tells analytics.js how each GitHub load went ({ type: "loaded" | "error", view, ... }).
+// analytics.js starts once the page is idle, so events are also kept in window.ossEvents for it to catch up on.
+window.ossEvents = [];
+function ossEvent(type, detail) {
+  const ev = { type, ...detail };
+  window.ossEvents.push(ev);
+  dispatchEvent(new CustomEvent("oss", { detail: ev }));
+}
+
+let prsPromise = null;
+function loadPRs() {
+  prsPromise ||= gh(`/search/issues?q=${encodeURIComponent(OSS_QUERY)}&sort=created&order=desc&per_page=100`)
+    .then((d) =>
+      d.items
+        .map((i) => {
+          const [owner, name] = i.repository_url.split("/repos/")[1].split("/");
+          return { owner, name, repo: `${owner}/${name}`, number: i.number, title: i.title, state: prState(i), created: i.created_at };
+        })
+        .sort((a, b) => b.created.localeCompare(a.created)), // latest first
+    )
+    .then((prs) => {
+      $("#ossCount").textContent = `[${String(prs.length).padStart(2, "0")}]`;
+      return prs;
+    })
+    .catch((err) => {
+      prsPromise = null; // let the next view try again
+      throw err;
+    });
+  return prsPromise;
+}
+
+// i is the row's index in its list (map's second argument), kept for analytics
+const prRowHTML = (p, i) => `<li class="pr-row reveal"><a href="#/open-source/${p.repo}/${p.number}" data-pos="${i + 1}" data-state="${p.state}">
+    <span class="pr-repo" title="${esc(p.repo)}">${esc(p.owner)}/<b>${esc(p.name)}</b></span>
+    <span class="pr-title">${inline(p.title)} <span class="pr-num">#${p.number}</span></span>
+    ${stateHTML(p.state)}
+    <time datetime="${p.created}">${fmtDate(p.created)}</time>
+    <span class="pr-go" aria-hidden="true">→</span>
+  </a></li>`;
+const skeletonRows = (n) =>
+  `<li class="pr-skel" aria-hidden="true"><span></span><span></span><span></span></li>`.repeat(n);
+const ossError = (err, href = GH_SEARCH) =>
+  `<li class="pr-empty">Couldn't load this from GitHub right now (${esc(err.message)}).<a class="link-arrow" href="${href}" target="_blank" rel="noopener">See it on GitHub ↗</a></li>`;
+
+// Home section: the latest few. GitHub is only called once the section is near, so visitors
+// who never scroll that far don't use up their rate limit.
+const ossList = $("#ossList");
+function renderOssHome() {
+  ossList.innerHTML = skeletonRows(3);
+  loadPRs().then(
+    (prs) => {
+      ossList.innerHTML = prs.length
+        ? prs.slice(0, OSS_ON_HOME).map(prRowHTML).join("")
+        : `<li class="pr-empty">No pull requests yet.</li>`;
+      observeReveals();
+      ossEvent("loaded", { view: "home", count: prs.length });
+    },
+    (err) => {
+      ossList.innerHTML = ossError(err);
+      ossEvent("error", { view: "home", reason: err.message });
+    },
+  );
+}
+new IntersectionObserver(
+  (entries, obs) => {
+    if (!entries.some((en) => en.isIntersecting)) return;
+    obs.disconnect();
+    renderOssHome();
+  },
+  { rootMargin: "800px 0px" },
+).observe($("#open-source"));
+
+// #/open-source: every contribution, latest first
+function renderOssPage() {
+  const body = $("#detailBody");
+  const want = location.hash;
+  body.innerHTML = `<div class="detail-hero"><div><h1>Open source contributions</h1></div></div><ol class="pr-list">${skeletonRows(5)}</ol>`;
+  loadPRs().then(
+    (prs) => {
+      if (location.hash !== want) return;
+      const merged = prs.filter((p) => p.state === "merged").length;
+      const repos = [...new Set(prs.map((p) => p.repo))];
+      body.innerHTML = `
+    <div class="detail-hero">
+      <div>
+        <div class="tags"><span>Open Source</span><span>Live from GitHub</span></div>
+        <h1>Open source contributions<small>/${prs.length} pull requests</small></h1>
+        <p>Fixes, features and docs I've contributed to projects I use, latest first. Open one to see why it was needed, how I fixed it and who merged it.</p>
+        <div class="detail-actions">
+          <a class="btn btn-dark" href="${GH_SEARCH}" target="_blank" rel="noopener">View on GitHub <span class="arrow">↗</span></a>
+        </div>
+      </div>
+      <div class="detail-meta">
+        <div><small>Merged</small><span>${merged} of ${prs.length}</span></div>
+        <div><small>Repositories</small><span>${repos.map(esc).join(", ") || "None yet"}</span></div>
+        ${prs.length ? `<div><small>Latest</small><span>${fmtDate(prs[0].created)}</span></div>` : ""}
+      </div>
+    </div>
+    <ol class="pr-list">${prs.map(prRowHTML).join("") || `<li class="pr-empty">No pull requests yet.</li>`}</ol>`;
+      observeReveals();
+      ossEvent("loaded", { view: "list", count: prs.length });
+    },
+    (err) => {
+      if (location.hash !== want) return;
+      body.innerHTML = `<ol class="pr-list">${ossError(err)}</ol>`;
+      ossEvent("error", { view: "list", reason: err.message });
+    },
+  );
+}
+
+// #/open-source/<owner>/<repo>/<number>: one pull request, with the write-up, the outcome and the files
+function renderPR(owner, name, n) {
+  const body = $("#detailBody");
+  const want = location.hash;
+  const path = `/repos/${owner}/${name}/pulls/${n}`;
+  const onGitHub = `https://github.com/${owner}/${name}/pull/${n}`;
+  body.innerHTML = `<div class="detail-hero"><div><div class="tags"><span>${esc(owner)}/${esc(name)}</span></div><h1 class="pr-h1">Pull request #${n}</h1></div></div><ol class="pr-list">${skeletonRows(4)}</ol>`;
+  Promise.all([
+    gh(path, "application/vnd.github.full+json"), // includes body_html: the description as GitHub renders it
+    gh(`${path}/files?per_page=100`),
+    loadPRs().catch(() => []),
+  ]).then(
+    ([d, files, prs]) => {
+      if (location.hash !== want) return;
+      document.title = `${d.title} · Priyanka Sharma (lassiecoder)`;
+      const state = prState(d);
+      const commits = `${d.commits} commit${d.commits === 1 ? "" : "s"}`;
+      const base = `<code>${esc(d.base.ref)}</code>`;
+      const outcome = {
+        merged: `${esc(d.merged_by?.login || "A maintainer")} merged ${commits} into ${base} on ${fmtDate(d.merged_at)}`,
+        closed: `Closed without merging on ${fmtDate(d.closed_at)}`,
+        open: `Wants to merge ${commits} into ${base} · in review`,
+        draft: `Draft · ${commits} so far`,
+      }[state];
+      const others = prs.filter((p) => !(p.repo === `${owner}/${name}` && p.number === n)).slice(0, 3);
+      const fileHTML = (f) => {
+        const cut = f.filename.lastIndexOf("/") + 1;
+        return `<li><span class="pr-file" title="${esc(f.filename)}"><span class="dir">${esc(f.filename.slice(0, cut))}</span><b>${esc(f.filename.slice(cut))}</b></span><span class="pr-diff"><ins>+${f.additions}</ins><del>−${f.deletions}</del></span></li>`;
+      };
+      body.innerHTML = `
+    <div class="detail-hero">
+      <div>
+        <div class="tags"><span>${esc(d.base.repo.full_name)}</span>${d.labels.map((l) => `<span>${esc(l.name)}</span>`).join("")}</div>
+        <h1 class="pr-h1">${inline(d.title)}<small>/#${n}</small></h1>
+        <p class="pr-line">${stateHTML(state)}<span>${outcome}</span></p>
+        <div class="detail-actions">
+          <a class="btn btn-dark" href="${onGitHub}" target="_blank" rel="noopener">View on GitHub <span class="arrow">↗</span></a>
+          <a class="btn btn-light" href="${onGitHub}/files" target="_blank" rel="noopener">Files changed <span class="arrow">↗</span></a>
+        </div>
+      </div>
+      <div class="detail-meta">
+        <div><small>Opened</small><span>${fmtDate(d.created_at)}</span></div>
+        ${state === "merged" ? `<div><small>Merged</small><span>${fmtDate(d.merged_at)}</span></div>` : ""}
+        ${d.merged_by ? `<div><small>Merged by</small><span>${esc(d.merged_by.login)}</span></div>` : ""}
+        <div><small>Branch</small><span>${esc(d.head.label)} → ${esc(d.base.ref)}</span></div>
+      </div>
+    </div>
+    <div class="pr-stats">
+      <div><b>${d.commits}</b><small>Commits</small></div>
+      <div><b>${d.changed_files}</b><small>Files</small></div>
+      <div><b class="add">+${d.additions}</b><small>Additions</small></div>
+      <div><b class="del">−${d.deletions}</b><small>Deletions</small></div>
+      <div><b>${d.comments + d.review_comments}</b><small>Comments</small></div>
+    </div>
+    <div class="pr-grid">
+      <section class="pr-card"><h2>The fix</h2><div class="prose">${d.body_html || "<p>No description.</p>"}</div></section>
+      <section class="pr-card pr-files"><h2>Files changed <span>${files.length}</span></h2><ul>${files.map(fileHTML).join("")}</ul></section>
+    </div>
+    ${others.length ? `<div class="detail-more"><h2>More contributions</h2><ol class="pr-list">${others.map(prRowHTML).join("")}</ol></div>` : ""}`;
+      body.querySelectorAll(".prose a[href]").forEach((a) => {
+        a.target = "_blank";
+        a.rel = "noopener";
+      });
+      observeReveals();
+      ossEvent("loaded", { view: "pr", pr: `${owner}/${name}/${n}`, state });
+    },
+    (err) => {
+      if (location.hash !== want) return;
+      body.innerHTML = `<ol class="pr-list">${ossError(err, onGitHub)}</ol>`;
+      ossEvent("error", { view: "pr", pr: `${owner}/${name}/${n}`, reason: err.message });
+    },
+  );
+}
+
+/* =========================================================
+   Detail views (hash routing): #/work/<slug>, #/open-source, #/open-source/<owner>/<repo>/<number>
    ========================================================= */
 const detail = $("#detail");
 let lastScroll = 0;
@@ -1291,17 +1512,24 @@ function renderDetail(p) {
   initSlideshows($("#detailBody"));
 }
 
+function openView(title, back, render) {
+  if (!document.body.classList.contains("viewing")) lastScroll = scrollY;
+  $("#backBtn").setAttribute("href", back);
+  render();
+  document.body.classList.add("viewing");
+  detail.hidden = false;
+  document.title = `${title} · Priyanka Sharma (lassiecoder)`;
+  scrollTo({ top: 0, behavior: "instant" });
+}
+
 function route() {
   const m = location.hash.match(/^#\/work\/([\w-]+)/);
   const p = m && PROJECTS.find((x) => x.slug === m[1]);
-  if (p) {
-    if (!document.body.classList.contains("viewing")) lastScroll = scrollY;
-    renderDetail(p);
-    document.body.classList.add("viewing");
-    detail.hidden = false;
-    document.title = `${p.title} · Priyanka Sharma (lassiecoder)`;
-    scrollTo({ top: 0, behavior: "instant" });
-  } else if (document.body.classList.contains("viewing")) {
+  const pr = location.hash.match(/^#\/open-source\/([\w.-]+)\/([\w.-]+)\/(\d+)$/);
+  if (p) openView(p.title, "#work", () => renderDetail(p));
+  else if (pr) openView(`${pr[1]}/${pr[2]} #${pr[3]}`, "#/open-source", () => renderPR(pr[1], pr[2], +pr[3]));
+  else if (location.hash === "#/open-source") openView("Open source contributions", "#open-source", renderOssPage);
+  else if (document.body.classList.contains("viewing")) {
     document.body.classList.remove("viewing");
     detail.hidden = true;
     document.title = HOME_TITLE;

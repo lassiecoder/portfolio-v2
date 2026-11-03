@@ -69,7 +69,7 @@ async function start() {
       }),
     { threshold: 0.35 },
   );
-  document.querySelectorAll("#work, #expertise, #ai, #experience, #beyond, #contact, .stats").forEach((el) => io.observe(el));
+  document.querySelectorAll("#work, #expertise, #experience, #beyond, #community, #contact, .stats").forEach((el) => io.observe(el));
 
   /* ---------- Every CTA: anything that navigates, opens, or toggles ----------
      One consistent `cta_click` event for all of them (easy to report on), plus a few

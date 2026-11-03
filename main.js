@@ -1094,10 +1094,10 @@ $("#events").innerHTML = COMMUNITY.map(
   (e) => `<li class="ev reveal">
     <div class="ev-img"${e.pos ? ` style="--pos: ${e.pos}"` : ""}><img src="assets/community-${e.img}.webp" alt="${esc(e.alt)}" loading="lazy" decoding="async" /></div>
     <div class="ev-body">
-      <span class="ev-meta">${e.kind} · ${e.when}</span>
+      <span class="ev-meta">${esc(e.kind)} · ${esc(e.when)}</span>
       <h3 class="ev-title"><a href="${e.href}" target="_blank" rel="noopener">${esc(e.title)}</a></h3>
       <span class="ev-where">${esc(e.where)}</span>
-      <span class="ev-posts"><a href="${e.href}" target="_blank" rel="noopener">${e.on} ↗</a></span>
+      <span class="ev-posts"><a href="${e.href}" target="_blank" rel="noopener">${esc(e.on)} ↗</a></span>
     </div>
   </li>`,
 ).join("");
@@ -1258,7 +1258,9 @@ const detail = $("#detail");
 let lastScroll = 0;
 
 function renderDetail(p) {
-  const others = PROJECTS.filter((o) => o.slug !== p.slug).slice(0, 2);
+  // The next two projects in list order (wrapping), so each page suggests different work
+  const at = PROJECTS.indexOf(p);
+  const others = [1, 2].map((n) => PROJECTS[(at + n) % PROJECTS.length]);
   $("#detailBody").innerHTML = `
     <div class="detail-hero">
       <div>

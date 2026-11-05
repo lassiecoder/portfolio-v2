@@ -10,7 +10,7 @@ const PROJECTS = [
     title: "RN Build Doctor — Find the Real Build Error",
     kind: "NPM Package",
     filter: ["oss"],
-    badge: "Open Source",
+    badges: ["Personal Project", "Open Source"],
     tags: ["NPM Package", "CLI", "React Native"],
     summary:
       "An open-source CLI that finds the real reason a React Native or Expo build, release, or startup failed. Pipe in a Gradle, Xcode, CocoaPods, Metro, or device log and it reports the primary error, the log lines that prove it, and the next steps — offline, with no guessing.",
@@ -56,11 +56,245 @@ const PROJECTS = [
     accent: "#34d399",
   },
   {
+    slug: "socialaize",
+    title: "Socialaize — AI Social Media Management",
+    kind: "Web App",
+    filter: ["web"],
+    badges: ["Real Project"],
+    tags: ["Web App", "B2B & Subscription SaaS"],
+    summary:
+      "Socialaize is a B2B, subscription SaaS web application for managing social media with AI: teams connect their accounts, publish across platforms from one place, automate cross-posting with workflows, and let AI test video variations to find what performs.",
+    highlights: [
+      "Dashboard with connected accounts, posts, views and engagement at a glance",
+      "Create once, publish everywhere — media library, Google Drive import, hashtag suggestions sized per platform",
+      "Video trials: AI makes versions of a video, runs them as Instagram trial reels and posts the winner",
+      "Workflow builder (e.g. Pinterest → AI caption rewrite → Instagram) with AI-recommended steps",
+      "Teams, billing and subscription plans for B2B customers",
+      "My work: refactored social authentication — OAuth integrations, sign-up/sign-in flows and push notification handling",
+    ],
+    role: "SDE2 at Zataverse",
+    stack: "React",
+    links: [
+      {
+        label: "Visit Website",
+        href: "https://socialaize.com/",
+        primary: true,
+      },
+    ],
+    preview: {
+      slides: [
+        {
+          xl: "assets/socialaize-xl-01.webp",
+          sm: "assets/socialaize-sm-01.webp",
+          alt: "Socialaize dashboard: connected accounts, posts, views and engagement, with recent posts, notifications and workflow executions",
+        },
+        {
+          xl: "assets/socialaize-xl-02.webp",
+          sm: "assets/socialaize-sm-02.webp",
+          alt: "Socialaize: create a new post with media, caption and suggested hashtags for an Instagram account",
+        },
+        {
+          xl: "assets/socialaize-xl-03.webp",
+          sm: "assets/socialaize-sm-03.webp",
+          alt: "Socialaize video trials: AI makes versions of a video and tests them as Instagram trial reels",
+        },
+        {
+          xl: "assets/socialaize-xl-04.webp",
+          sm: "assets/socialaize-sm-04.webp",
+          alt: "Socialaize workflow editor: when a Pinterest post is created, publish it to Instagram, with an AI caption rewrite recommendation",
+        },
+      ],
+    },
+    accent: "#2a8a8f",
+  },
+  {
+    slug: "staryo",
+    title: "Staryo — Private Chats & Star Payments",
+    kind: "Web App",
+    filter: ["web"],
+    badges: ["Real Project"],
+    tags: ["Web App", "B2B & Subscription SaaS"],
+    summary:
+      "Staryo is a B2B, subscription SaaS web application for real, human connection: people find someone who catches their eye, start a private conversation, and send stars, an in-app currency bought through a wallet, to show appreciation.",
+    highlights: [
+      "Landing experience built around private chats, profiles, stars and a safe space",
+      "Messages inbox with online / offline / unread filters, typing indicators and star gifts in the thread",
+      "Notifications for stars, messages and profile stars, with quick Say thanks and Reply actions",
+      "Wallet with star balance, buy / send stars and a full activity history",
+      "My work: resolved production issues — UI inconsistencies, stability and customer-reported usability bottlenecks",
+    ],
+    role: "SDE2 at Zataverse",
+    stack: "Astro",
+    links: [
+      {
+        label: "Visit Website",
+        href: "https://staryo.com/",
+        primary: true,
+      },
+    ],
+    preview: {
+      slides: [
+        {
+          xl: "assets/staryo-xl-01.webp",
+          sm: "assets/staryo-sm-01.webp",
+          alt: "Staryo landing page: Real, Human Connection, with a private conversation preview",
+        },
+        {
+          xl: "assets/staryo-xl-02.webp",
+          sm: "assets/staryo-sm-02.webp",
+          alt: "Staryo: why Staryo, with tabs for private chats, your profile, stars and safe space",
+        },
+        {
+          xl: "assets/staryo-xl-03.webp",
+          sm: "assets/staryo-sm-03.webp",
+          alt: "Staryo messages: conversation list with filters and a private chat with a star gift",
+        },
+        {
+          xl: "assets/staryo-xl-04.webp",
+          sm: "assets/staryo-sm-04.webp",
+          alt: "Staryo notifications: stars received, new messages and profile stars",
+        },
+        {
+          xl: "assets/staryo-xl-05.webp",
+          sm: "assets/staryo-sm-05.webp",
+          alt: "Staryo wallet: star balance, buy and send stars, and activity history",
+        },
+      ],
+    },
+    accent: "#6d4fd8",
+  },
+  {
+    slug: "edufund",
+    title: "EduFund — Mutual Funds SIP",
+    kind: "Mobile App",
+    filter: ["mobile"],
+    badges: ["Real Project"],
+    tags: ["Mobile App", "EduFund"],
+    summary:
+      "EduFund, India's leading education-investment app, helps parents save for their children's education and stay ahead of rising education costs.",
+    highlights: [
+      "KYC verification for Indian and US investment accounts",
+      "Secure access via facial recognition and fingerprint scanning",
+      "Push notifications that increased new-user activity by 47%",
+      "Firebase analytics for age-based targeted marketing",
+      "Fastlane-powered build and deployment workflows",
+    ],
+    role: "Product Engineer",
+    stack: "React Native, Firebase, Fastlane",
+    links: [
+      {
+        label: "Play Store",
+        href: "https://play.google.com/store/apps/details?id=com.educationfund.edufund&hl=en_IN",
+        primary: true,
+      },
+      {
+        label: "App Store",
+        href: "https://apps.apple.com/in/app/edufund-mutual-funds-sip/id1538432722",
+      },
+    ],
+    mock: "phones",
+    preview: {
+      xl: "assets/edu-xl.webp",
+      sm: "assets/edu-sm.webp",
+      alt: "EduFund app screens: investing for your child's future, top mutual funds, education cost calculator and secure transactions",
+    },
+    accent: "#4f46e5",
+    screen: "#f5f6ff",
+  },
+  {
+    slug: "edufund-web",
+    title: "EduFund — Education Planning Website",
+    kind: "Web App",
+    filter: ["web"],
+    badges: ["Real Project"],
+    tags: ["Web App", "EduFund"],
+    summary:
+      "EduFund's website, where parents plan and invest for their children's education: education investments, education loans, counsellor sessions and study-abroad planning in one place. I worked on it as a Product Engineer at EduFund, building it with React.js.",
+    highlights: [
+      "Built with React.js as part of the EduFund product team",
+      "Entry points for investments, education loans, counsellors and immigration by investment",
+      "Education cost planning that shows what college will cost in the years ahead",
+      "Responsive layouts for parents browsing on desktop and mobile",
+      "Also built a white-label web solution for ICICI, a major banking partner, using Next.js",
+    ],
+    role: "Product Engineer",
+    stack: "React.js",
+    links: [
+      {
+        label: "Visit Website",
+        href: "https://www.edufund.in/",
+        primary: true,
+      },
+    ],
+    preview: {
+      slides: [
+        {
+          xl: "assets/edufund-web-xl-01.webp",
+          sm: "assets/edufund-web-sm-01.webp",
+          alt: "EduFund website: India's #1 platform to help you plan for your child's education",
+        },
+        {
+          xl: "assets/edufund-web-xl-02.webp",
+          sm: "assets/edufund-web-sm-02.webp",
+          alt: "EduFund website: investments, loans, counsellors and immigration by investment",
+        },
+      ],
+    },
+    accent: "#1e1b6e",
+  },
+  {
+    slug: "adecco",
+    title: "Adecco — Job Placement App",
+    kind: "Mobile App",
+    filter: ["mobile"],
+    badges: ["Real Project"],
+    tags: ["Mobile App", "The Adecco Group"],
+    summary:
+      "The Adecco mobile app transforms job placement with accuracy, speed and thorough evaluation — linking over 700,000 people to top-tier global opportunities every day.",
+    highlights: [
+      "White-label onboarding solution deployable across multiple client brands",
+      "Enhanced candidate, associate and client sign-in / sign-up screens",
+      "eKYC flow refactor that shortened onboarding and reduced support queries",
+      "Fastlane + GitOps release automation — 60% faster releases",
+    ],
+    role: "SDE1",
+    stack: "React Native, Fastlane, GitHub Actions, GitOps",
+    links: [
+      {
+        label: "Play Store",
+        href: "https://play.google.com/store/apps/details?id=com.adecco.app20&hl=en_IN&gl=US",
+        primary: true,
+      },
+      {
+        label: "App Store",
+        href: "https://apps.apple.com/us/app/adecco/id1518950579",
+      },
+    ],
+    mock: "phones",
+    preview: {
+      // Paired by content: desktop 01 / mobile 02 = App Store, desktop 02 / mobile 01 = Play Store
+      slides: [
+        {
+          xl: "assets/adecco-xl-01.webp",
+          sm: "assets/adecco-sm-02.webp",
+          alt: "Adecco India on the App Store: sign-in, dashboard and attendance screens",
+        },
+        {
+          xl: "assets/adecco-xl-02.webp",
+          sm: "assets/adecco-sm-01.webp",
+          alt: "Adecco India on Google Play: 4.5 rating, 100K+ downloads and app screenshots",
+        },
+      ],
+    },
+    accent: "#dc2626",
+    screen: "#fff6f6",
+  },
+  {
     slug: "traya",
     title: "Traya — Hair Assessment App",
     kind: "Mobile App",
     filter: ["mobile", "oss"],
-    badge: "Personal Project",
+    badges: ["Personal Project", "Open Source"],
     tags: ["Mobile App", "React Native"],
     summary:
       "A React Native app that walks a user through a signup, an 11-question hair-loss assessment, and a generated report and plan with a mini product checkout.",
@@ -97,7 +331,7 @@ const PROJECTS = [
     title: "Wayk — The Alarm You Can't Snooze",
     kind: "Mobile App",
     filter: ["mobile", "oss"],
-    badge: "Personal Project",
+    badges: ["Personal Project", "Open Source"],
     tags: ["Mobile App", "React Native"],
     summary:
       "An alarm app that doesn't let you snooze your way back to sleep. Pick a wake time and a “mission” you must complete before the alarm stops — push-ups, a math problem, photographing your made bed — and Wayk builds a personalized morning plan around it.",
@@ -130,7 +364,7 @@ const PROJECTS = [
     title: "Enterprise Dashboard",
     kind: "Web App",
     filter: ["web", "oss"],
-    badge: "Personal Project",
+    badges: ["Personal Project", "Open Source"],
     tags: ["Web App", "Next.js 16"],
     summary:
       "A modern, feature-rich enterprise dashboard built with Next.js 16, React 19, TypeScript and Tailwind CSS — comprehensive business analytics, eCommerce management and data visualization with dark and light themes.",
@@ -181,7 +415,7 @@ const PROJECTS = [
     title: "Gathr — Events & RSVPs",
     kind: "Web App",
     filter: ["web", "oss"],
-    badge: "Personal Project",
+    badges: ["Personal Project", "Open Source"],
     tags: ["Web App", "React", "Express"],
     summary:
       "A full-stack events app: browse, create and RSVP to events, with a waitlist that promotes people automatically and live updates for every viewer. I built both sides: the React frontend and the Express + TypeScript backend (REST API, validation, RSVP and waitlist rules, a live-update feed and calendar export), and deployed it on Render as a single service.",
@@ -232,7 +466,7 @@ const PROJECTS = [
     title: "npx lassiecoder — in your terminal",
     kind: "NPM Package",
     filter: ["oss"],
-    badge: "Open Source",
+    badges: ["Personal Project", "Open Source"],
     tags: ["NPM Package", "Node.js", "CLI"],
     summary:
       "A personalized command-line business card. Run one command and see a professional profile, skills and contact information — right in the terminal.",
@@ -256,132 +490,6 @@ const PROJECTS = [
     ],
     mock: "term",
     accent: "#3a3a3a",
-  },
-  {
-    slug: "edufund",
-    title: "EduFund — Mutual Funds SIP",
-    kind: "Mobile App",
-    filter: ["mobile"],
-    badge: "Real Project",
-    tags: ["Mobile App", "EduFund"],
-    summary:
-      "EduFund, India's leading education-investment app, helps parents save for their children's education and stay ahead of rising education costs.",
-    highlights: [
-      "KYC verification for Indian and US investment accounts",
-      "Secure access via facial recognition and fingerprint scanning",
-      "Push notifications that increased new-user activity by 47%",
-      "Firebase analytics for age-based targeted marketing",
-      "Fastlane-powered build and deployment workflows",
-    ],
-    role: "Product Engineer",
-    stack: "React Native, Firebase, Fastlane",
-    links: [
-      {
-        label: "Play Store",
-        href: "https://play.google.com/store/apps/details?id=com.educationfund.edufund&hl=en_IN",
-        primary: true,
-      },
-      {
-        label: "App Store",
-        href: "https://apps.apple.com/in/app/edufund-mutual-funds-sip/id1538432722",
-      },
-    ],
-    mock: "phones",
-    preview: {
-      xl: "assets/edu-xl.webp",
-      sm: "assets/edu-sm.webp",
-      alt: "EduFund app screens: investing for your child's future, top mutual funds, education cost calculator and secure transactions",
-    },
-    accent: "#4f46e5",
-    screen: "#f5f6ff",
-  },
-  {
-    slug: "edufund-web",
-    title: "EduFund — Education Planning Website",
-    kind: "Web App",
-    filter: ["web"],
-    badge: "Real Project",
-    tags: ["Web App", "EduFund"],
-    summary:
-      "EduFund's website, where parents plan and invest for their children's education: education investments, education loans, counsellor sessions and study-abroad planning in one place. I worked on it as a Product Engineer at EduFund, building it with React.js.",
-    highlights: [
-      "Built with React.js as part of the EduFund product team",
-      "Entry points for investments, education loans, counsellors and immigration by investment",
-      "Education cost planning that shows what college will cost in the years ahead",
-      "Responsive layouts for parents browsing on desktop and mobile",
-      "Also built a white-label web solution for ICICI, a major banking partner, using Next.js",
-    ],
-    role: "Product Engineer",
-    stack: "React.js",
-    links: [
-      {
-        label: "Visit Website",
-        href: "https://www.edufund.in/",
-        primary: true,
-      },
-    ],
-    preview: {
-      slides: [
-        {
-          xl: "assets/edufund-web-xl-01.webp",
-          sm: "assets/edufund-web-sm-01.webp",
-          alt: "EduFund website: India's #1 platform to help you plan for your child's education",
-        },
-        {
-          xl: "assets/edufund-web-xl-02.webp",
-          sm: "assets/edufund-web-sm-02.webp",
-          alt: "EduFund website: investments, loans, counsellors and immigration by investment",
-        },
-      ],
-    },
-    accent: "#1e1b6e",
-  },
-  {
-    slug: "adecco",
-    title: "Adecco — Job Placement App",
-    kind: "Mobile App",
-    filter: ["mobile"],
-    badge: "Real Project",
-    tags: ["Mobile App", "The Adecco Group"],
-    summary:
-      "The Adecco mobile app transforms job placement with accuracy, speed and thorough evaluation — linking over 700,000 people to top-tier global opportunities every day.",
-    highlights: [
-      "White-label onboarding solution deployable across multiple client brands",
-      "Enhanced candidate, associate and client sign-in / sign-up screens",
-      "eKYC flow refactor that shortened onboarding and reduced support queries",
-      "Fastlane + GitOps release automation — 60% faster releases",
-    ],
-    role: "SDE1",
-    stack: "React Native, Fastlane, GitHub Actions, GitOps",
-    links: [
-      {
-        label: "Play Store",
-        href: "https://play.google.com/store/apps/details?id=com.adecco.app20&hl=en_IN&gl=US",
-        primary: true,
-      },
-      {
-        label: "App Store",
-        href: "https://apps.apple.com/us/app/adecco/id1518950579",
-      },
-    ],
-    mock: "phones",
-    preview: {
-      // Paired by content: desktop 01 / mobile 02 = App Store, desktop 02 / mobile 01 = Play Store
-      slides: [
-        {
-          xl: "assets/adecco-xl-01.webp",
-          sm: "assets/adecco-sm-02.webp",
-          alt: "Adecco India on the App Store: sign-in, dashboard and attendance screens",
-        },
-        {
-          xl: "assets/adecco-xl-02.webp",
-          sm: "assets/adecco-sm-01.webp",
-          alt: "Adecco India on Google Play: 4.5 rating, 100K+ downloads and app screenshots",
-        },
-      ],
-    },
-    accent: "#dc2626",
-    screen: "#fff6f6",
   },
 ];
 
@@ -488,7 +596,7 @@ const EXPERTISE = [
     ],
     proof: [
       {
-        where: "Socialaise",
+        where: "Socialaize",
         what: "Refactored OAuth integrations, social sign-up/sign-in and push handling",
       },
       {
@@ -609,11 +717,11 @@ const EXPERIENCE = [
     role: "SDE2",
     where: "Los Angeles, CA",
     when: "Nov 2025 — Now",
-    metric: ["4", "client products: Imaige.io, Socialaise, Kinnbook, Staryo"],
+    metric: ["4", "client products: Imaige.io, Socialaize, Kinnbook, Staryo"],
     points: [
       "Develop and maintain multiple client applications across React, React Native and Astro for web and mobile.",
       "Built the Imaige.io website from scratch — authentication flows, secure payment gateway integration and responsive onboarding, improving conversion and checkout reliability.",
-      "Refactored Socialaise social authentication — OAuth integrations, sign-up/sign-in flows and push notification handling.",
+      "Refactored Socialaize social authentication — OAuth integrations, sign-up/sign-in flows and push notification handling.",
       "Developed the Kinnbook marketing site in Astro with reusable components, optimized SSG, performance and SEO.",
       "Resolved production issues in Staryo — UI inconsistencies, stability and customer-reported usability bottlenecks.",
       "Integrated third-party APIs and optimized frontend data flow to cut redundant network requests.",
@@ -717,7 +825,7 @@ const esc = (s) =>
 // One image renders statically; several become a slideshow (see initSlideshows).
 // Intrinsic widths of images that have smaller -640/-1200 variants (made at build time),
 // so the browser can download the size it actually displays.
-const IMG_W = {"edufund-web-xl-01.webp": 2256, "edufund-web-xl-02.webp": 2256, "gathr-xl-01.webp": 2256, "gathr-xl-02.webp": 2256, "gathr-xl-03.webp": 2256, "rn-build-doctor-xl-01.webp": 2256, "rn-build-doctor-xl-02.webp": 2256, "rn-build-doctor-xl-03.webp": 2256, "adecco-xl-01.webp": 2256, "adecco-xl-02.webp": 2256, "ai-1-web.webp": 1200, "ai-2-web.webp": 1200, "ai-3.webp": 1200, "auth-1.webp": 1200, "auth-2.webp": 1200, "auth-3.webp": 1200, "edu-xl.webp": 2256, "enterprise-sm-01.webp": 2256, "enterprise-sm-02.webp": 2256, "enterprise-sm-03.webp": 2256, "mobile-app-development-1.webp": 900, "mobile-app-development-2.webp": 900, "mobile-app-development-3.webp": 900, "portrait.webp": 1000, "release-devops-1.webp": 1200, "release-devops-2.webp": 1200, "release-devops-3.webp": 1200, "traya-xl.webp": 2256, "wayk-xl.webp": 2256, "web-app-1.webp": 1200, "web-app-2.webp": 1200, "web-app-3.webp": 1200};
+const IMG_W = {"staryo-xl-01.webp": 2256, "staryo-xl-02.webp": 2256, "staryo-xl-03.webp": 2256, "staryo-xl-04.webp": 2256, "staryo-xl-05.webp": 2256, "socialaize-xl-01.webp": 2256, "socialaize-xl-02.webp": 2256, "socialaize-xl-03.webp": 2256, "socialaize-xl-04.webp": 2256, "edufund-web-xl-01.webp": 2256, "edufund-web-xl-02.webp": 2256, "gathr-xl-01.webp": 2256, "gathr-xl-02.webp": 2256, "gathr-xl-03.webp": 2256, "rn-build-doctor-xl-01.webp": 2256, "rn-build-doctor-xl-02.webp": 2256, "rn-build-doctor-xl-03.webp": 2256, "adecco-xl-01.webp": 2256, "adecco-xl-02.webp": 2256, "ai-1-web.webp": 1200, "ai-2-web.webp": 1200, "ai-3.webp": 1200, "auth-1.webp": 1200, "auth-2.webp": 1200, "auth-3.webp": 1200, "edu-xl.webp": 2256, "enterprise-sm-01.webp": 2256, "enterprise-sm-02.webp": 2256, "enterprise-sm-03.webp": 2256, "mobile-app-development-1.webp": 900, "mobile-app-development-2.webp": 900, "mobile-app-development-3.webp": 900, "portrait.webp": 1000, "release-devops-1.webp": 1200, "release-devops-2.webp": 1200, "release-devops-3.webp": 1200, "traya-xl.webp": 2256, "wayk-xl.webp": 2256, "web-app-1.webp": 1200, "web-app-2.webp": 1200, "web-app-3.webp": 1200};
 function srcset(path) {
   const w = IMG_W[path.split("/").pop()];
   if (!w) return "";
@@ -781,7 +889,7 @@ function mockHTML(p) {
 
 function cardHTML(p) {
   return `<a class="card reveal" href="#/work/${p.slug}" data-filter="${p.filter.join(" ")}">
-    <div class="thumb">${p.preview ? previewHTML(p) : mockHTML(p)}<span class="badge">${esc(p.badge)}</span><span class="open">↗</span></div>
+    <div class="thumb">${p.preview ? previewHTML(p) : mockHTML(p)}<span class="badges">${p.badges.map((b) => `<span class="badge${b === "Real Project" ? " real" : ""}">${esc(b)}</span>`).join("")}</span><span class="open">↗</span></div>
     <h3>${esc(p.title)}</h3>
     <div class="tags">${p.tags.map((t) => `<span>${esc(t)}</span>`).join("")}</div>
   </a>`;
@@ -1486,7 +1594,7 @@ function renderDetail(p) {
     <div class="detail-hero">
       <div>
         <div class="tags">${p.tags.map((t) => `<span>${esc(t)}</span>`).join("")}</div>
-        <h1>${esc(p.title)}<small>/${esc(p.badge)}</small></h1>
+        <h1>${esc(p.title)}<small${p.badges.includes("Real Project") ? ' class="real"' : ""}>/${p.badges.map(esc).join(" · ")}</small></h1>
         <p>${esc(p.summary)}</p>
         <div class="detail-actions">
           ${p.links.map((l) => `<a class="btn ${l.primary ? "btn-dark" : "btn-light"}" href="${l.href}" target="_blank" rel="noopener">${esc(l.label)} <span class="arrow">↗</span></a>`).join("")}
